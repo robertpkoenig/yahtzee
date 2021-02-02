@@ -1,0 +1,5 @@
+It is a good idea to take the specification and develop it into a
+document outlining the key requirements as shown in class on 2. Feb. 
+I suggest you use this simple text file and keep it under version
+control, in case any changes may need to be made.
+

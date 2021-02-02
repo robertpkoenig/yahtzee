@@ -1,0 +1,14 @@
+# ignore backup files
+*~ 
+*.bak
+
+# Ignore Gradle project-specific cache directory
+.gradle
+.settings
+.idea
+.classpath
+.project
+
+# Ignore Gradle build output directory
+build
+bin
