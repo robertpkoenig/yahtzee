@@ -86,7 +86,7 @@ jacocoTestReport {
 
 checkstyle {
 	toolVersion "8.40"
-	configFile file("$configDir/google_checks_modified.xml")
+	configFile file("config/checkstyle/google_checks_modified.xml")
 }
 
 pmd {
