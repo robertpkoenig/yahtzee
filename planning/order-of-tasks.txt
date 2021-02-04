@@ -1,0 +1,8 @@
+- class diagram
+- interfaces
+- tests
+- run tests to ensure they all fail
+- iteratively implement and write tests
+- potentially create some visualizations
+
+

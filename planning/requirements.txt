@@ -1,0 +1,21 @@
+The model must:
+
+- Accomodate any number of players
+- Determine winner at the end of the game
+- Accomodate exactly 13 rounds per game
+- Give each player a turn on each round
+
+The model must be able to:
+
+- Tell the active player what combinations they still need
+- Tell the active player what combinations they have already played
+- Tell who is in the lead at any time
+- Tell the active player what combinations their current dice can already make
+- Tell the active player what potential combinations they could make
+
+The assignment spec:
+
+- Commit to Git repository at major development points
+- Start with tests, and code to the tests
+- Test all functionality
+- Pass all tests
