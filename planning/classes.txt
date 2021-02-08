@@ -1,0 +1,43 @@
+Game
+    players: List<Player>
+    round: int
+    activePlayer: Player
+    dice: List<Dice> 
+
+    getWinner()
+    isGameFinished() 
+    reStart()
+
+Player
+    name: String
+    scoreSheet: ScoreSheet
+    game: Game
+    keptDice: List<Dice>
+    
+    roll()
+    keepDice()
+    getScore()
+    getUnusedScoringOptions()
+    getScoringOptionsAlreadyAchieved()
+    getPossibleScoringOptions()
+    getHighestAvailableScoringOption()
+
+ScoreSheet
+    scoringOptions: List<PlayerScoringOption>
+
+PlayerScoringOption
+    scoringOption: ScoringOption
+    taken: boolean
+    scoreForThisOption: int
+
+Dice
+    currentFace: int
+
+    roll()
+    getCurrentFace(): int
+
+ScoringOption
+    name: String
+
+    getName(): String
+    test(List<Dice>): boolean
