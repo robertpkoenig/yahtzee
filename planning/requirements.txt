@@ -4,6 +4,7 @@ The model must:
 - Determine winner at the end of the game
 - Accomodate exactly 13 rounds per game
 - Give each player a turn on each round
+- Force a player to enter a score on each turn
 
 The model must be able to:
 
