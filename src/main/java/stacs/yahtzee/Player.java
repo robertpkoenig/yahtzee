@@ -2,7 +2,16 @@ package stacs.yahtzee;
 
 import java.util.List;
 
+/**
+ * Model for the player in a game of Yahtzee
+ */
 public interface Player {
+
+    /**
+     * Returns the current player's playing order in the game
+     */
+    int getPlayingOrder();
+
      /**
      * This method calls the 'roll' method on a list of dice objects.
      * The list of dice objects is the game's dice objects, less the dice

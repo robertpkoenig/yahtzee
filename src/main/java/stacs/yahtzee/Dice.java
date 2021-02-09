@@ -1,5 +1,8 @@
 package stacs.yahtzee;
 
+/**
+ * Model for a six sided die
+ */
 public interface Dice {
 
     /**

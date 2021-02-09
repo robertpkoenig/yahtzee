@@ -2,6 +2,10 @@ package stacs.yahtzee;
 
 import java.util.List;
 
+/**
+ * Model for a scoring option in Yahtzee. This is wrapped within a 'PlayerScoringOption'
+ * before being added to a player's scorecard
+ */
 public interface ScoringOption {
 
     /**

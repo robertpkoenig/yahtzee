@@ -2,6 +2,9 @@ package stacs.yahtzee;
 
 import java.util.List;
 
+/**
+ * Model for a player's score card in Yahtzee
+ */
 public interface ScoreCard {
 
     /**
