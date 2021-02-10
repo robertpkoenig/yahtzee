@@ -1,10 +1,16 @@
 package stacs.yahtzee;
 
 import static org.junit.Assert.assertTrue;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import org.mockito.*;
 
 /**
  * 
@@ -18,7 +24,21 @@ public class YahtzeeModelTests {
   void setup() {
     // create a new game with 6 players
     numPlayers = 6;
-    model = new YahtzeeModel(numPlayers);
+
+    List<IPlayer> players = new ArrayList<>();
+    for (int i = 0 ; i < numPlayers ; i++) {
+      IPlayer newPlayer = Mockito.mock(IPlayer.class);
+      Mockito.when(newPlayer.getPlayingOrder()).thenReturn(i);
+      players.add(newPlayer);
+    }
+
+    List<IDice> dice = new ArrayList<>();
+    for (int i = 0 ; i < Constants.getNumberOfDice() ; i++) {
+      IDice newDie = Mockito.mock(IDice.class);
+      dice.add(newDie);
+    }
+
+    model = new YahtzeeModel(players, dice);
   }
 
   @Test

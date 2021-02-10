@@ -15,33 +15,59 @@ public class YahtzeeModel implements IYahtzeeModel {
     private List<IDice> dice;
     private boolean isGameFinished;
 
+    /**
+     * This is a dummy constructor for testing, allowing the tester to inject
+     * mock objects instead of those created by the real constructor.
+     */
+    public YahtzeeModel(List<IPlayer> newPlayers, List<IDice> newDice) {
+        addPlayersToGame(newPlayers);
+        setActivePlayer(0);
+        addDiceToGame(newDice);
+    }
+
     public YahtzeeModel(int numPlayers) {
-        addPlayersToGame(numPlayers);
-        addDiceToGame();
+        addPlayersToGame(createPlayers(numPlayers));
+        setActivePlayer(0);
+        addDiceToGame(createDice());
     }
 
     @Override
-    public void addDiceToGame() {
-        this.dice = new ArrayList<>();
+    public List<IDice> createDice() {
+        List<IDice> newDice = new ArrayList<>();
         int numDice = Constants.getNumberOfDice();
         for (int i = 0 ; i < numDice ; i++) {
             Dice newDie = new Dice();
             this.dice.add(newDie);
         }
+        return newDice;
     }
 
+    @Override
+    public void addDiceToGame(List<IDice> newDice) {
+        this.dice = newDice;
+    }
+
+    @Override
+    public void addPlayersToGame(List<IPlayer> newPlayers) {
+        this.players = newPlayers;
+    }
     
+    @Override
+    public void setActivePlayer(int newActivePlayerOrder) {
+        this.activePlayer = players.get(newActivePlayerOrder);
+    }
+
     /** 
      * @param numPlayers
      */
     @Override
-    public void addPlayersToGame(int numPlayers) {
-        this.players = new ArrayList<>();
+    public List<IPlayer> createPlayers(int numPlayers) {
+        List<IPlayer> newPlayers = new ArrayList<>();
         for (int i = 0 ; i < numPlayers ; i++) {
             Player newPlayer = new Player(i, this);
             this.players.add(newPlayer);
         }
-        this.activePlayer = players.get(0);
+        return newPlayers;
     }
 
     
@@ -125,9 +151,11 @@ public class YahtzeeModel implements IYahtzeeModel {
             else this.currentRound++;
         }
 
-        int newPlayerOrder = (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
-        this.activePlayer = players.get(newPlayerOrder);
+        int newActivePlayerOrder = (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
+        setActivePlayer(newActivePlayerOrder);
     }
+
+    
 
     @Override
     public List<IDice> getDice() {
