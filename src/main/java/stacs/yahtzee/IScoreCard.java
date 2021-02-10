@@ -8,15 +8,37 @@ import java.util.List;
 public interface IScoreCard {
     
     /**
+     * 
+     * @param scoringOptions
+     */
+    void setUppperScoringOptions(List<IScoringOption> scoringOptions);
+
+    /**
+     * Set the lower scoring options
+     * @param scoringOptions The scoring options to be added to the lower set
+     */
+    void setLowerScoringOptions(List<IScoringOption> scoringOptions);
+
+    /**
      * Returns the total score for each scoring option on this score card.
      */
     int getTotalScore();
 
     /**
-     * Gets the score for the 'upper' scoring options. This includes a bonus score
-     * if the sum of all upper scoring options is greater than 63
+     * Returns the score for the 'upper' scoring options. This excludes a possible bonus value.
      */
-    int getUpperScore();
+    int getUpperScoreWithoutBonus();
+
+    /**
+     * This includes a bonus score if the sum of all upper scoring options is greater than 63.
+     */
+    int getUpperScoreWithBonus();
+
+    /**
+     * Returns the bonus score for the 'upper' scoring options. If the score for other 'upper'
+     * scoring options are above 63, this value is 35. Otherwise it is 0.
+     */
+    int getUpperScoreBonus();
 
     /**
      * Gets the score for the 'lower' scoring options. In our implementation 

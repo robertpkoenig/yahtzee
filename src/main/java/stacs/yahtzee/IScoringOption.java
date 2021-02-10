@@ -18,5 +18,15 @@ public interface IScoringOption {
      * and false otherwise.
      * @param dice The relevant game's dice
      */
-    boolean doCurrentDiceSatisfyThisScoringOption(List<IDice> dice);
+    boolean currentDiceSatisfyThisScoringOption(List<IDie> dice);
+
+    /**
+     * Returns the score that the owner player has recorded for this option
+     */
+    int getScoreRecordedForThisOption();
+
+    /**
+     * Returns true if this scoring option has been used
+     */
+    boolean hasBeenUsed();
 }
