@@ -1,5 +1,6 @@
 package stacs.yahtzee;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements IPlayer {
@@ -24,42 +25,33 @@ public class Player implements IPlayer {
 
     @Override
     public void rollDice() throws IllegalStateException{
-        // TODO Auto-generated method stub
+        if (this.rollsCompleted >= 3) throw new IllegalStateException();
+        for (IDie die : getActiveDice()) die.roll();
+        this.rollsCompleted++;
     }
 
     @Override
     public List<IDie> getKeptDice() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.keptDice;
     }
     
     @Override
-    public void setKeptDice(List<IDie> keptDie) {
-        // TODO Auto-generated method stub
+    public void setKeptDice(List<IDie> keptDice) {
+        this.keptDice = keptDice;
     }
 
     @Override
-    public int getScore() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public List<IPlayerScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public IPlayerScoringOption getHighestScoringOption() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<IDie> getActiveDice() {
+        List<IDie> activeDice = new ArrayList<>();
+        for (IDie die : this.game.getDice()) {
+            if (!this.keptDice.contains(die)) activeDice.add(die);
+        }
+        return activeDice;
     }
 
     @Override
     public IScoreCard getScoreCard() {
-        // TODO Auto-generated method stub
-        return null;
+        return this.scoreCard;
     }
 
     @Override
@@ -69,14 +61,18 @@ public class Player implements IPlayer {
     }
 
     private void endTurn() {
-        // TODO Auto-generated method stub
+        this.game.registerTurnFinished(this);
+        this.keptDice.clear();
     }
 
     @Override
     public int getNumberOfRollsCompleted() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.rollsCompleted;
     }
 
-    
+    @Override
+    public void setScoreCard(IScoreCard scoreCard) {
+        this.scoreCard = scoreCard;
+    }
+
 }

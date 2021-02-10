@@ -32,12 +32,18 @@ public interface IPlayer {
      * removes or adds a new set of dice and sends that new list to this method.
      * @param keptDie The list of dice the player has elected not to roll.
      */
-    void setKeptDice(List<IDie> keptDie);
+    void setKeptDice(List<IDie> keptDice);
 
     /**
      * Returns the list of dice the player has elected to 'keep' and not roll
      */
     List<IDie> getKeptDice();
+
+    /**
+     * Returns the game's dice, excluding those the user has elected to keep.
+     * @return
+     */
+    List<IDie> getActiveDice();
 
     /**
      * Gets this player's scorecard object.
