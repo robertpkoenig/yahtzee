@@ -5,12 +5,16 @@ import java.util.List;
 public class Player implements IPlayer {
 
     int playerOrder;
+    int score;
     IYahtzeeModel game;
     int rollsCompleted;
+    List<IDie> keptDice;
+    IScoreCard scoreCard;
 
     public Player(int playerOrder, IYahtzeeModel game) {
         this.playerOrder = playerOrder;
         this.game = game;
+        this.score = 0;
     }
 
     @Override
@@ -19,21 +23,19 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public void rollDice(List<IDice> dice) {
+    public void rollDice() throws IllegalStateException{
         // TODO Auto-generated method stub
-
     }
 
     @Override
-    public void keepDice(IDice keptDice) {
+    public List<IDie> getKeptDice() {
         // TODO Auto-generated method stub
-
+        return null;
     }
-
+    
     @Override
-    public void unKeepDice(IDice unKeptDice) {
+    public void setKeptDice(List<IDie> keptDie) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -66,10 +68,8 @@ public class Player implements IPlayer {
         return false;
     }
 
-    @Override
-    public void endTurn() {
+    private void endTurn() {
         // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -78,10 +78,5 @@ public class Player implements IPlayer {
         return 0;
     }
 
-    @Override
-    public List<IDice> getKeptDice() {
-        // TODO Auto-generated method stub
-        return null;
-    }
     
 }

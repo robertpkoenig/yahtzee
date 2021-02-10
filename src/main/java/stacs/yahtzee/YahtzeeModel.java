@@ -12,45 +12,18 @@ public class YahtzeeModel implements IYahtzeeModel {
     private List<IPlayer> players;
     private IPlayer activePlayer;
     private int currentRound;
-    private List<IDice> dice;
+    private List<IDie> dice;
     private boolean isDone;
 
-    /**
-     * This is a dummy constructor for testing, allowing the tester to inject
-     * mock objects instead of those created by the real constructor.
-     */
-    public YahtzeeModel(List<IPlayer> newPlayers, List<IDice> newDice) {
-        addPlayersToGame(newPlayers);
-        setActivePlayer(0);
-        addDiceToGame(newDice);
-        this.currentRound = 0;
-    }
-
-    public YahtzeeModel(int numPlayers) {
-        addPlayersToGame(createPlayers(numPlayers));
-        setActivePlayer(0);
-        addDiceToGame(createDice());
-        this.currentRound = 0;
-    }
+    public YahtzeeModel() {}
 
     @Override
-    public List<IDice> createDice() {
-        List<IDice> newDice = new ArrayList<>();
-        int numDice = Constants.getNumberOfDice();
-        for (int i = 0 ; i < numDice ; i++) {
-            Dice newDie = new Dice();
-            this.dice.add(newDie);
-        }
-        return newDice;
-    }
-
-    @Override
-    public void addDiceToGame(List<IDice> newDice) {
+    public void setDice(List<IDie> newDice) {
         this.dice = newDice;
     }
 
     @Override
-    public void addPlayersToGame(List<IPlayer> newPlayers) {
+    public void setPlayers(List<IPlayer> newPlayers) {
         this.players = newPlayers;
     }
     
@@ -59,20 +32,6 @@ public class YahtzeeModel implements IYahtzeeModel {
         this.activePlayer = players.get(newActivePlayerOrder);
     }
 
-    /** 
-     * @param numPlayers
-     */
-    @Override
-    public List<IPlayer> createPlayers(int numPlayers) {
-        List<IPlayer> newPlayers = new ArrayList<>();
-        for (int i = 0 ; i < numPlayers ; i++) {
-            Player newPlayer = new Player(i, this);
-            this.players.add(newPlayer);
-        }
-        return newPlayers;
-    }
-
-    
     /** 
      * @return Player
      */
@@ -124,16 +83,6 @@ public class YahtzeeModel implements IYahtzeeModel {
     public boolean isDone() {
         return this.isDone;
     }
-
-    
-    /** 
-     * @return YahtzeeModel
-     */
-    @Override
-    public IYahtzeeModel reStart() {
-        return new YahtzeeModel(this.players.size());
-    }
-
     
     /** 
      * @param playerFinishingTurn
@@ -160,7 +109,7 @@ public class YahtzeeModel implements IYahtzeeModel {
     
 
     @Override
-    public List<IDice> getDice() {
+    public List<IDie> getDice() {
         return this.dice;
     }
 

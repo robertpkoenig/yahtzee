@@ -11,18 +11,12 @@ import java.util.List;
 public interface IYahtzeeModel {
 
     /**
-     * Creates a specified number player objects and returns them in a list
-     * @return List of player objects created
-     */
-    List<IPlayer> createPlayers(int numPlayers);
-
-    /**
      * Create new 'player' object for each player, and add to the game's
      * list of players.
      * @param numPlayers The number of players specified as a parameter
      * in the constructor in the game object
      */
-    void addPlayersToGame(List<IPlayer> newPlayers);
+    void setPlayers(List<IPlayer> newPlayers);
 
     /**
      * Returns this game's list of players
@@ -30,23 +24,15 @@ public interface IYahtzeeModel {
     List<IPlayer> getPlayerList();
 
     /**
-     * Creates dice objects which are then added to the game. The number of dice
-     * objects created here is dictated by the 'numberOfDice' field in the 'Constants'
-     * class.
-     * @return The list of dice that this method has created
-     */
-    List<IDice> createDice();
-
-    /**
      * Create new 'dice' objects and add the game's list of dice.
      * The number of dice is specified in the constants file.
      */
-    void addDiceToGame(List<IDice> dice);
+    void setDice(List<IDie> dice);
 
     /**
      * Returns the dice that belong to the current game
      */
-    List<IDice> getDice();
+    List<IDie> getDice();
 
     /**
      * Returns the player who's turn it is.
@@ -89,12 +75,5 @@ public interface IYahtzeeModel {
      * @return True if the game is finished, otherwise false
      */
     boolean isDone();
-
-    /**
-     * Returns a new game in the starting condition with the same number
-     * of players.
-     * @return The new game in the starting condition
-     */
-    IYahtzeeModel reStart();
 
 }

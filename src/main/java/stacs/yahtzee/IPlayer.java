@@ -24,51 +24,30 @@ public interface IPlayer {
      * the player may have elected to 'keep' after the previous role. If it is
      * their first roll of the round, they must roll all the dice.
      */
-    void rollDice(List<IDice> dice);
+    void rollDice();
 
     /**
-     * This enables a player to 'keep' certin dice that they have previously
-     * rolled within the current round so that they are not rolled on subsequent
-     * rolls within the current round.
-     * @param keptDice The dice the player has elected not to roll.
+     * Sets the dice that this player has elected to 'keep'. The intended use is
+     * that the getter is called first to get this player's kept dice, then the caller
+     * removes or adds a new set of dice and sends that new list to this method.
+     * @param keptDie The list of dice the player has elected not to roll.
      */
-    void keepDice(IDice keptDice);
-
-    /**
-     * This allows the player to reverse their decision to 'keep' a certain dice.
-     * @param unKeptDice The dice that the player will no longer 'keep'
-     */
-    void unKeepDice(IDice unKeptDice);
+    void setKeptDice(List<IDie> keptDie);
 
     /**
      * Returns the list of dice the player has elected to 'keep' and not roll
      */
-    List<IDice> getKeptDice();
-
-    /**
-     * Get this player's score.
-     */
-    int getScore();
-
-    /**
-     * Gets the scoring options this player has not already registered a score for,
-     * and which are satisfied by their current dice roll.
-     * @return A list of scoring options that are fulfilled with the users
-     * current dice and which they have not already used
-     */
-    List<IPlayerScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
-
-    /**
-     * Returns the available scoring option that has the highest score given
-     * the current dice values.
-     * @return The highest scoring option.
-     */
-    IPlayerScoringOption getHighestScoringOption();
+    List<IDie> getKeptDice();
 
     /**
      * Gets this player's scorecard object.
      */
     IScoreCard getScoreCard();
+
+    /**
+     * Sets this player's score card to the one passed as a parameter
+     */
+    void setScoreCard(IScoreCard scoreCard);
 
     /**
      * Called by the player when they wish to mark their scorecard for a particular
@@ -78,14 +57,8 @@ public interface IPlayer {
      * will be calculated automatically and registered in the scorecard card object 
      * by the "player score option" object.
      * @return Returns true if the operation is succesful. Returns false if the player
-     * attempted to mark 
+     * attempted to use a scoring option they have already used.
      */
     boolean useScoringOptionAndEndTurn(IPlayerScoringOption scoringOption);
-
-    /**
-     * Tells the game that the current player has ended their turn. This is called
-     * from the 'applyScoringOptionAndEndTurn' method.
-     */
-    void endTurn();
 
 }
