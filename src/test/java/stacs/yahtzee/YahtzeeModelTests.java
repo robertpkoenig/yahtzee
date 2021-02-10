@@ -1,7 +1,5 @@
 package stacs.yahtzee;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +20,7 @@ public class YahtzeeModelTests {
 
   @BeforeEach
   void setup() {
-    // create a new game with 6 players
+    // create a new game with mock Player and Dice objects
     numPlayers = 6;
 
     List<IPlayer> players = new ArrayList<>();
@@ -43,13 +41,11 @@ public class YahtzeeModelTests {
 
   @Test
   void testPlayerQuantity() {
-    // correct number of players added
     assertEquals(numPlayers, model.getPlayerList().size());
   }
 
   @Test
   void testDiceQuantity() {
-    // correct number of dice added
     assertEquals(Constants.getNumberOfDice(), model.getDice().size());
   }
 
@@ -63,25 +59,41 @@ public class YahtzeeModelTests {
     assertNull(model.getPlayerWithHighestScore());
   }
 
-  // if the activeplayer registers their turn finished, this should result in the 
-  // second player being the active player
   @Test
   void testActivePlayerSwitching() {
-    // when active player finishes turn, next player becomes the active player
+    // if the activeplayer registers their turn finished, this should result in the 
+    // second player being the active player
     model.registerTurnFinished(model.getActivePlayer());
     assertEquals(model.getPlayerList().get(1), model.getActivePlayer());
   }
 
-  // if all players register their turn finished, this should result in the 
-  // first player being the active player again
   @Test
   void testActivePlayerWrapAround() {
-    // when all players have their first turn, the first player is the active player again
+    // if all players register their turn finished, this should result in the 
+    // first player being the active player again
     for (int i = 0 ; i < numPlayers ; i++) {
-      // register turn ended of active player
       model.registerTurnFinished(model.getActivePlayer());
     }
     assertEquals(model.getPlayerList().get(0), model.getActivePlayer());
+  }
+
+  @Test
+  void testRoundIncrement() {
+    // when all players take their turn, the round is incremented by 1
+    for (int i = 0 ; i < numPlayers ; i++) {
+      model.registerTurnFinished(model.getActivePlayer());
+    }
+    assertEquals(1, model.getCurrentRound());
+  }
+
+  @Test
+  void testGameEndsAfterAllPlayersAndAllRounds() {
+    for (int i = 0 ; i < Constants.getNumberOfRounds() ; i++) {
+      for (int j = 0 ; j < numPlayers ; j++) {
+        model.registerTurnFinished(model.getActivePlayer());
+      }  
+    }
+    assertEquals(true, model.isDone());
   }
 
 }

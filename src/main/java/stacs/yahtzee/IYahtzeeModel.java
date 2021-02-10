@@ -88,7 +88,7 @@ public interface IYahtzeeModel {
      * after the last player's turn in the last round.
      * @return True if the game is finished, otherwise false
      */
-    boolean isGameFinished();
+    boolean isDone();
 
     /**
      * Returns a new game in the starting condition with the same number

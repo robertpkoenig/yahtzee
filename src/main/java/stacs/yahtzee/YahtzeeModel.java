@@ -13,7 +13,7 @@ public class YahtzeeModel implements IYahtzeeModel {
     private IPlayer activePlayer;
     private int currentRound;
     private List<IDice> dice;
-    private boolean isGameFinished;
+    private boolean isDone;
 
     /**
      * This is a dummy constructor for testing, allowing the tester to inject
@@ -23,12 +23,14 @@ public class YahtzeeModel implements IYahtzeeModel {
         addPlayersToGame(newPlayers);
         setActivePlayer(0);
         addDiceToGame(newDice);
+        this.currentRound = 0;
     }
 
     public YahtzeeModel(int numPlayers) {
         addPlayersToGame(createPlayers(numPlayers));
         setActivePlayer(0);
         addDiceToGame(createDice());
+        this.currentRound = 0;
     }
 
     @Override
@@ -119,8 +121,8 @@ public class YahtzeeModel implements IYahtzeeModel {
      * @return boolean
      */
     @Override
-    public boolean isGameFinished() {
-        return this.isGameFinished;
+    public boolean isDone() {
+        return this.isDone;
     }
 
     
@@ -142,9 +144,9 @@ public class YahtzeeModel implements IYahtzeeModel {
 
         // This logic ensures that the game never goes to '14' rounds, as this could mean
         // that a downstream GUI briefly shows 'round 14' before the game ends.
-        if (playerFinishingTurn.getPlayingOrder() == this.players.size()) {
-            if (this.currentRound == Constants.getNumberOfRounds()) {
-                this.isGameFinished = true;
+        if (playerFinishingTurn.getPlayingOrder() == this.players.size() - 1) {
+            if (this.currentRound >= Constants.getNumberOfRounds() - 1) {
+                this.isDone = true;
                 this.activePlayer = null;
                 return;
             }
