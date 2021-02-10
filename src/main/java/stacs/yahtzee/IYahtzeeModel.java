@@ -21,7 +21,7 @@ public interface IYahtzeeModel {
     /**
      * Returns this game's list of players
      */
-    List<Player> getPlayerList();
+    List<IPlayer> getPlayerList();
 
     /**
      * Create new 'dice' objects and add the game's list of dice.
@@ -32,12 +32,12 @@ public interface IYahtzeeModel {
     /**
      * Returns the dice that belong to the current game
      */
-    List<Dice> getDice();
+    List<IDice> getDice();
 
     /**
      * Returns the player who's turn it is.
      */
-    Player getActivePlayer();
+    IPlayer getActivePlayer();
     
     /**
      * Returns the number of the current round.
@@ -52,15 +52,16 @@ public interface IYahtzeeModel {
     /**
      * Called by a player object when the player finishes their turn.
      * This allows the model to assign the next player as the active player,
-     * or to finish the game.
+     * and if necessary it increments the round or finishes the game.
      */
-    void registerTurnFinished(Player playerFinishingTurn) throws IllegalArgumentException;
+    void registerTurnFinished(IPlayer playerFinishingTurn) throws IllegalArgumentException;
 
     /**
      * This method returns the player with highest score. When the game
-     * is finished, the person with the highest score is the winner.
+     * is finished, the person with the highest score is the winner. If
+     * no player yet has a score, it returns null.
      */
-    Player getPlayerWithHighestScore();
+    IPlayer getPlayerWithHighestScore();
 
     /**
      * Method to check if the game is finished. This always returns true
@@ -74,6 +75,6 @@ public interface IYahtzeeModel {
      * of players.
      * @return The new game in the starting condition
      */
-    YahtzeeModel reStart();
+    IYahtzeeModel reStart();
 
 }

@@ -1,5 +1,3 @@
-It is a good idea to take the specification and develop it into a
-document outlining the key requirements as shown in class on 2. Feb. 
-I suggest you use this simple text file and keep it under version
-control, in case any changes may need to be made.
-
+ I have created my own set of planning documents in the "planning" folder.
+ I kept this document as a pointer to that folder in case you did not see
+ the 'planning' folder I created.

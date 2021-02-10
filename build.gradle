@@ -62,6 +62,7 @@ dependencies { // https://docs.gradle.org/current/userguide/declaring_dependenci
 	testImplementation "org.junit.platform:junit-platform-runner:${junit_platform_version}"
 	testImplementation "org.junit.platform:junit-platform-suite-api:${junit_platform_version}"
 	testImplementation "org.junit.platform:junit-platform-engine:${junit_platform_version}"
+	testCompile "org.mockito:mockito-core:2.+"
 }
 
 test { // https://docs.gradle.org/5.2.1/userguide/java_testing.html#using_junit5 

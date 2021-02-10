@@ -1,24 +1,33 @@
 package stacs.yahtzee;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.processing.SupportedOptions;
 
 /**
  * An implementation of the YahtzeeModel interface
  */
 public class YahtzeeModel implements IYahtzeeModel {
-    private List<Player> players;
-    private Player activePlayer;
+    private List<IPlayer> players;
+    private IPlayer activePlayer;
     private int currentRound;
-    private List<Dice> dice;
+    private List<IDice> dice;
+    private boolean isGameFinished;
 
     public YahtzeeModel(int numPlayers) {
-
+        addPlayersToGame(numPlayers);
+        addDiceToGame();
     }
 
     @Override
     public void addDiceToGame() {
-        // TODO Auto-generated method stub
-
+        this.dice = new ArrayList<>();
+        int numDice = Constants.getNumberOfDice();
+        for (int i = 0 ; i < numDice ; i++) {
+            Dice newDie = new Dice();
+            this.dice.add(newDie);
+        }
     }
 
     
@@ -27,8 +36,12 @@ public class YahtzeeModel implements IYahtzeeModel {
      */
     @Override
     public void addPlayersToGame(int numPlayers) {
-        // TODO Auto-generated method stub
-
+        this.players = new ArrayList<>();
+        for (int i = 0 ; i < numPlayers ; i++) {
+            Player newPlayer = new Player(i, this);
+            this.players.add(newPlayer);
+        }
+        this.activePlayer = players.get(0);
     }
 
     
@@ -36,9 +49,8 @@ public class YahtzeeModel implements IYahtzeeModel {
      * @return Player
      */
     @Override
-    public Player getActivePlayer() {
-        // TODO Auto-generated method stub
-        return null;
+    public IPlayer getActivePlayer() {
+        return this.activePlayer;
     }
 
     
@@ -47,8 +59,7 @@ public class YahtzeeModel implements IYahtzeeModel {
      */
     @Override
     public int getCurrentRound() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.currentRound;
     }
 
     
@@ -56,9 +67,16 @@ public class YahtzeeModel implements IYahtzeeModel {
      * @return Player
      */
     @Override
-    public Player getPlayerWithHighestScore() {
-        // TODO Auto-generated method stub
-        return null;
+    public IPlayer getPlayerWithHighestScore() {
+        IPlayer highestScoringPlayer = null;
+        int highestScore = 0;
+        for (IPlayer player : players) {
+            if (player.getScore() > highestScore) {
+                highestScoringPlayer = player;
+                highestScore = player.getScore();
+            }
+        }
+        return highestScoringPlayer;
     }
 
     
@@ -67,8 +85,7 @@ public class YahtzeeModel implements IYahtzeeModel {
      */
     @Override
     public int getTotalRounds() {
-        // TODO Auto-generated method stub
-        return 0;
+        return Constants.getNumberOfRounds();
     }
 
     
@@ -77,8 +94,7 @@ public class YahtzeeModel implements IYahtzeeModel {
      */
     @Override
     public boolean isGameFinished() {
-        // TODO Auto-generated method stub
-        return false;
+        return this.isGameFinished;
     }
 
     
@@ -86,9 +102,8 @@ public class YahtzeeModel implements IYahtzeeModel {
      * @return YahtzeeModel
      */
     @Override
-    public YahtzeeModel reStart() {
-        // TODO Auto-generated method stub
-        return null;
+    public IYahtzeeModel reStart() {
+        return new YahtzeeModel(this.players.size());
     }
 
     
@@ -96,21 +111,32 @@ public class YahtzeeModel implements IYahtzeeModel {
      * @param playerFinishingTurn
      */
     @Override
-    public void registerTurnFinished(Player playerFinishingTurn) {
-        // TODO Auto-generated method stub
+    public void registerTurnFinished(IPlayer playerFinishingTurn) {
+        if (playerFinishingTurn != this.activePlayer) throw new IllegalArgumentException();
 
+        // This logic ensures that the game never goes to '14' rounds, as this could mean
+        // that a downstream GUI briefly shows 'round 14' before the game ends.
+        if (playerFinishingTurn.getPlayingOrder() == this.players.size()) {
+            if (this.currentRound == Constants.getNumberOfRounds()) {
+                this.isGameFinished = true;
+                this.activePlayer = null;
+                return;
+            }
+            else this.currentRound++;
+        }
+
+        int newPlayerOrder = (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
+        this.activePlayer = players.get(newPlayerOrder);
     }
 
     @Override
-    public List<Dice> getDice() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<IDice> getDice() {
+        return this.dice;
     }
 
     @Override
-    public List<Player> getPlayerList() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<IPlayer> getPlayerList() {
+        return  this.players;
     }
 
 }

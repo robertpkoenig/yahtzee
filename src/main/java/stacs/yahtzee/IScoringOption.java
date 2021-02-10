@@ -6,7 +6,7 @@ import java.util.List;
  * Model for a scoring option in Yahtzee. This is wrapped within a 'PlayerScoringOption'
  * before being added to a player's scorecard
  */
-public interface ScoringOption {
+public interface IScoringOption {
 
     /**
      * Returns a string of the current scoring option's name
@@ -18,5 +18,5 @@ public interface ScoringOption {
      * and false otherwise.
      * @param dice The relevant game's dice
      */
-    boolean doCurrentDiceSatisfyThisScoringOption(List<Dice> dice);
+    boolean doCurrentDiceSatisfyThisScoringOption(List<IDice> dice);
 }

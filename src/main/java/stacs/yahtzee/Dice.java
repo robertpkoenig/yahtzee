@@ -1,17 +1,22 @@
 package stacs.yahtzee;
 
-/**
- * Model for a six sided die
- */
-public interface Dice {
+import java.util.Random;
 
-    /**
-     * Returns the value of the current die face
-     */
-    int getCurrentFace();
+public class Dice implements IDice {
 
-    /**
-     * Assigns this die a fresh random value
-     */
-    void roll();
+    private int currentFace;
+    private Random randomGenerator;
+
+    @Override
+    public int getCurrentFace() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void roll() {
+        // TODO Auto-generated method stub
+
+    }
+    
 }
