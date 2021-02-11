@@ -1,5 +1,7 @@
 package stacs.yahtzee;
 
+import stacs.yahtzee.scoringoptions.IScoringOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,7 +57,7 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public boolean useScoringOptionAndEndTurn(IPlayerScoringOption scoringOption) {
+    public boolean useScoringOptionAndEndTurn(IScoringOption scoringOption) {
         // TODO Auto-generated method stub
         resetPlayerState();
         return false;

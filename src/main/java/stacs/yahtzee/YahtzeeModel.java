@@ -1,9 +1,6 @@
 package stacs.yahtzee;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.annotation.processing.SupportedOptions;
 
 /**
  * An implementation of the YahtzeeModel interface

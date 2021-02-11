@@ -15,10 +15,12 @@ public interface IScoreCard {
     void setGame(IYahtzeeModel game);
 
     /**
-     * 
-     * @param scoringOptions
+     * Creates the scoring option objects used in this game and
+     * sets them as properties of this score card object. I create this
+     * to avoid creating a setter for each scoring option. Feedback on 
+     * my design around the scoring options would be appreciated.
      */
-    void setScoringOptions(List<IScoringOption> scoringOptions);
+    void setAllScoringOptions();
 
     /**
      * Returns the total score for each scoring option on this score card, 
@@ -59,4 +61,13 @@ public interface IScoreCard {
      */
     IScoringOption getHighestScoringOption();
 
+    /**
+     * Returns the list of upper scoring options
+     */
+    List<IScoringOption> getUpperScoringOptions();
+
+    /**
+     * Returns the list of lower scoring options
+     */
+    List<IScoringOption> getLowerScoringOptions();
 }

@@ -1,5 +1,7 @@
 package stacs.yahtzee;
 
+import stacs.yahtzee.scoringoptions.IScoringOption;
+
 import java.util.List;
 
 /**
@@ -65,6 +67,6 @@ public interface IPlayer {
      * @return Returns true if the operation is succesful. Returns false if the player
      * attempted to use a scoring option they have already used.
      */
-    boolean useScoringOptionAndEndTurn(IPlayerScoringOption scoringOption);
+    boolean useScoringOptionAndEndTurn(IScoringOption scoringOption);
 
 }
