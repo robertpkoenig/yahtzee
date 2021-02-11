@@ -1,65 +1,80 @@
 package stacs.yahtzee;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class ScoreCard implements IScoreCard {
 
     List<IScoringOption> scoringOptions;
+    IYahtzeeModel game;
 
     public ScoreCard() {}
 
     @Override
-    public void setLowerScoringOptions(List<IScoringOption> scoringOptions) {
-        // TODO Auto-generated method stub
-        
+    public void setGame(IYahtzeeModel game) {
+       this.game = game;
     }
 
     @Override
-    public void setUppperScoringOptions(List<IScoringOption> scoringOptions) {
-        // TODO Auto-generated method stub
-        
+    public void setScoringOptions(List<IScoringOption> scoringOptions) {
+        this.scoringOptions = scoringOptions;
     }
 
     @Override
     public int getTotalScore() {
-        // TODO Auto-generated method stub
-        return 0;
+        return getUpperScore() + getLowerScore();
     }
 
     @Override
-    public List<IPlayerScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice() {
-        // TODO Auto-generated method stub
-        return null;
+    public List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice() {
+        // for each scoring option check if it is used
+        // then check if it is satisfied by the current dice
+        // if so, add to the list of satisfying options
+        List<IScoringOption> outputList = new ArrayList<>();
+        for (IScoringOption scoringOption : scoringOptions) {
+            if (scoringOption.isSatisfiedByDice(this.game.getDice())) {
+                outputList.add(scoringOption);
+            }
+        }
+        return outputList;
     }
 
     @Override
-    public IPlayerScoringOption getHighestScoringOption() {
-        // TODO Auto-generated method stub
-        return null;
+    public IScoringOption getHighestScoringOption() {
+        IScoringOption highestScoringOption = null;
+        for (IScoringOption scoringOption : getUnusedScoringOptionsSatisfiedByCurrentDice()) {
+            if (!scoringOption.hasBeenUsed()) continue;
+            if (highestScoringOption == null ||
+                scoringOption.getScoreRecordedForThisOption() > highestScoringOption.getScoreRecordedForThisOption())
+                {
+                highestScoringOption = scoringOption;
+            }
+        }
+        return highestScoringOption;
     }
 
     @Override
     public int getLowerScore() {
-        // TODO Auto-generated method stub
-        return 0;
+        int lowerScore = 0;
+        for (IScoringOption scoringOption : this.scoringOptions) {
+            if (!scoringOption.isInUpperGroup()) lowerScore += scoringOption.getScoreRecordedForThisOption();
+        }
+        return lowerScore;
+    }
+
+    private int getUpperScoreWithoutBonus() {
+        int upperScore = 0;
+        for (IScoringOption scoringOption : this.scoringOptions) {
+            if (scoringOption.isInUpperGroup()) upperScore += scoringOption.getScoreRecordedForThisOption();
+        }
+        return upperScore;
     }
 
     @Override
-    public int getUpperScoreWithoutBonus() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int getUpperScoreWithBonus() {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-
-    @Override
-    public int getUpperScoreBonus() {
-        // TODO Auto-generated method stub
-        return 0;
+    public int getUpperScore() {
+        int upperScoreWithoutBonus = getUpperScoreWithoutBonus();
+        return (upperScoreWithoutBonus >= 63) ? upperScoreWithoutBonus + 35 : upperScoreWithoutBonus;
     }
     
 }

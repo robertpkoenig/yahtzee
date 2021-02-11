@@ -18,7 +18,7 @@ public interface IScoringOption {
      * and false otherwise.
      * @param dice The relevant game's dice
      */
-    boolean currentDiceSatisfyThisScoringOption(List<IDie> dice);
+    boolean isSatisfiedByDice(List<IDie> dice);
 
     /**
      * Returns the score that the owner player has recorded for this option
@@ -29,4 +29,10 @@ public interface IScoringOption {
      * Returns true if this scoring option has been used
      */
     boolean hasBeenUsed();
+
+    /**
+     * Returns true if this is in the upper group of scoring
+     * @return
+     */
+    boolean isInUpperGroup();
 }

@@ -8,16 +8,15 @@ import java.util.List;
 public interface IScoreCard {
     
     /**
+     * Sets the game object that this score card is a part of.
+     */
+    void setGame(IYahtzeeModel game);
+
+    /**
      * 
      * @param scoringOptions
      */
-    void setUppperScoringOptions(List<IScoringOption> scoringOptions);
-
-    /**
-     * Set the lower scoring options
-     * @param scoringOptions The scoring options to be added to the lower set
-     */
-    void setLowerScoringOptions(List<IScoringOption> scoringOptions);
+    void setScoringOptions(List<IScoringOption> scoringOptions);
 
     /**
      * Returns the total score for each scoring option on this score card.
@@ -25,20 +24,9 @@ public interface IScoreCard {
     int getTotalScore();
 
     /**
-     * Returns the score for the 'upper' scoring options. This excludes a possible bonus value.
-     */
-    int getUpperScoreWithoutBonus();
-
-    /**
      * This includes a bonus score if the sum of all upper scoring options is greater than 63.
      */
-    int getUpperScoreWithBonus();
-
-    /**
-     * Returns the bonus score for the 'upper' scoring options. If the score for other 'upper'
-     * scoring options are above 63, this value is 35. Otherwise it is 0.
-     */
-    int getUpperScoreBonus();
+    int getUpperScore();
 
     /**
      * Gets the score for the 'lower' scoring options. In our implementation 
@@ -52,13 +40,13 @@ public interface IScoreCard {
      * @return A list of scoring options that are fulfilled with the user's
      * current dice and which they have not already used
      */
-    List<IPlayerScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
+    List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
 
     /**
      * Returns the available scoring option that has the highest score given
      * the current dice values.
      * @return The highest scoring option.
      */
-    IPlayerScoringOption getHighestScoringOption();
+    IScoringOption getHighestScoringOption();
 
 }
