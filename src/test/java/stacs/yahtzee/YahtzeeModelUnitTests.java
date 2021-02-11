@@ -34,7 +34,7 @@ public class YahtzeeModelUnitTests {
     }
 
     dice = new ArrayList<>();
-    for (int i = 0 ; i < Constants.getNumberOfDice() ; i++) {
+    for (int i = 0 ; i < Constants.numberOfDice ; i++) {
       IDie newDie = Mockito.mock(IDie.class);
       dice.add(newDie);
     }
@@ -52,7 +52,7 @@ public class YahtzeeModelUnitTests {
 
   @Test
   void testDiceQuantity() {
-    assertEquals(Constants.getNumberOfDice(), model.getDice().size());
+    assertEquals(Constants.numberOfDice, model.getDice().size());
   }
 
   @Test
@@ -94,7 +94,7 @@ public class YahtzeeModelUnitTests {
 
   @Test
   void testGameEndsAfterAllPlayersAndAllRounds() {
-    for (int i = 0 ; i < Constants.getNumberOfRounds() ; i++) {
+    for (int i = 0 ; i < Constants.numberOfRounds ; i++) {
       for (int j = 0 ; j < numPlayers ; j++) {
         model.registerTurnFinished(model.getActivePlayer());
       }  
