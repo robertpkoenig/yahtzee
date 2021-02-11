@@ -7,16 +7,19 @@ public class Die implements IDie {
     private int currentFace;
     private Random randomGenerator;
 
+    public Die() {
+        this.currentFace = -1;
+        this.randomGenerator = new Random();
+    }
+
     @Override
     public int getCurrentFace() {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.currentFace;
     }
 
     @Override
     public void roll() {
-        // TODO Auto-generated method stub
-
+        this.currentFace = randomGenerator.nextInt(6) + 1;
     }
     
 }
