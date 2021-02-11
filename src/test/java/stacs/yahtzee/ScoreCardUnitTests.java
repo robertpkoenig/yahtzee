@@ -1,5 +1,7 @@
 package stacs.yahtzee;
 
+import stacs.yahtzee.scoringoptions.IScoringOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,17 +82,22 @@ public class ScoreCardUnitTests {
     }
 
     @Test
-    void testGetUpperScoreWithBonusOne() {
-        // upper score should 10 * 6 = 60
-        assertEquals(60, scoreCard.getUpperScore());
+    void testGetUpperScore() {
+        // upper score should 10 * 6 = 60 (no bonus)
+        assertEquals(60, scoreCard.getUpperScoreWithoutBonus());
     } 
 
     @Test
-    void testGetUpperScoreWithBonusTwo() {
+    void testNoBonus() {
+        assertEquals(0, scoreCard.getBonus());
+    }
+
+    @Test
+    void testGetBonus() {
         Mockito.when(upperOptions.get(0).getScoreRecordedForThisOption()).thenReturn(13);
         // bonus of 35 given if upper score is above 63
-        // score should therefore be 10 * 5 + 13 + 35 = 98
-        assertEquals(98, scoreCard.getUpperScore());
+        // given the new mockito instruction above, score should be 10 * 5 + 13 = 63
+        assertEquals(Constants.upperBonus, scoreCard.getBonus());
     }
 
 }

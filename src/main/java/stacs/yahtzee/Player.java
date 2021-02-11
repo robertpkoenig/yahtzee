@@ -57,7 +57,13 @@ public class Player implements IPlayer {
     @Override
     public boolean useScoringOptionAndEndTurn(IPlayerScoringOption scoringOption) {
         // TODO Auto-generated method stub
+        resetPlayerState();
         return false;
+    }
+
+    private void resetPlayerState() {
+        this.keptDice.clear();
+        this.rollsCompleted = 0;
     }
 
     private void endTurn() {

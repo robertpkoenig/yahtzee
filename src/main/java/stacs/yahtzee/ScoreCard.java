@@ -1,5 +1,7 @@
 package stacs.yahtzee;
 
+import stacs.yahtzee.scoringoptions.IScoringOption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +25,7 @@ public class ScoreCard implements IScoreCard {
 
     @Override
     public int getTotalScore() {
-        return getUpperScore() + getLowerScore();
+        return getUpperScoreWithoutBonus() + getBonus() + getLowerScore();
     }
 
     @Override
@@ -33,6 +35,7 @@ public class ScoreCard implements IScoreCard {
         // if so, add to the list of satisfying options
         List<IScoringOption> outputList = new ArrayList<>();
         for (IScoringOption scoringOption : scoringOptions) {
+            if (scoringOption.getScoreRecordedForThisOption() == -1) continue;
             if (scoringOption.isSatisfiedByDice(this.game.getDice())) {
                 outputList.add(scoringOption);
             }
@@ -44,7 +47,7 @@ public class ScoreCard implements IScoreCard {
     public IScoringOption getHighestScoringOption() {
         IScoringOption highestScoringOption = null;
         for (IScoringOption scoringOption : getUnusedScoringOptionsSatisfiedByCurrentDice()) {
-            if (!scoringOption.hasBeenUsed()) continue;
+            if (scoringOption.getScoreRecordedForThisOption() == -1) continue;
             if (highestScoringOption == null ||
                 scoringOption.getScoreRecordedForThisOption() > highestScoringOption.getScoreRecordedForThisOption())
                 {
@@ -58,23 +61,25 @@ public class ScoreCard implements IScoreCard {
     public int getLowerScore() {
         int lowerScore = 0;
         for (IScoringOption scoringOption : this.scoringOptions) {
+            if (scoringOption.getScoreRecordedForThisOption() == -1) continue;
             if (!scoringOption.isInUpperGroup()) lowerScore += scoringOption.getScoreRecordedForThisOption();
         }
         return lowerScore;
     }
 
-    private int getUpperScoreWithoutBonus() {
+    @Override
+    public int getUpperScoreWithoutBonus() {
         int upperScore = 0;
         for (IScoringOption scoringOption : this.scoringOptions) {
+            if (scoringOption.getScoreRecordedForThisOption() == -1) continue;
             if (scoringOption.isInUpperGroup()) upperScore += scoringOption.getScoreRecordedForThisOption();
         }
         return upperScore;
     }
 
     @Override
-    public int getUpperScore() {
-        int upperScoreWithoutBonus = getUpperScoreWithoutBonus();
-        return (upperScoreWithoutBonus >= 63) ? upperScoreWithoutBonus + 35 : upperScoreWithoutBonus;
+    public int getBonus() {
+        return (getUpperScoreWithoutBonus() >= Constants.upperBonusThreshold) ? Constants.upperBonus : 0;
     }
     
 }

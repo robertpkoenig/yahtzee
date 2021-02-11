@@ -4,20 +4,8 @@ package stacs.yahtzee;
  * Defines the constants for a game of Yahtzee
  */
 public abstract class Constants {
-    private static int numberOfDice = 5;
-    private static int numberOfRounds = 13;
-
-    /** 
-     * @return int
-     */
-    static int getNumberOfDice() {
-        return numberOfDice;
-    }
-    
-    /** 
-     * @return int
-     */
-    static int getNumberOfRounds() {
-        return numberOfRounds;
-    }
+    public static final int numberOfDice = 5;
+    public static final int numberOfRounds = 13;
+    public static final int upperBonusThreshold = 63;
+    public static final int upperBonus = 35;
 }

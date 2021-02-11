@@ -1,5 +1,7 @@
 package stacs.yahtzee;
 
+import stacs.yahtzee.scoringoptions.IScoringOption;
+
 import java.util.List;
 
 /**
@@ -19,14 +21,22 @@ public interface IScoreCard {
     void setScoringOptions(List<IScoringOption> scoringOptions);
 
     /**
-     * Returns the total score for each scoring option on this score card.
+     * Returns the total score for each scoring option on this score card, 
+     * including the optional bonus on the upper section.
      */
     int getTotalScore();
 
     /**
      * This includes a bonus score if the sum of all upper scoring options is greater than 63.
      */
-    int getUpperScore();
+    int getUpperScoreWithoutBonus();
+
+    /**
+     * Returns the value of the bonus applied to the upper score if upper score
+     * is above 63. The bonus is 35.
+     * @return
+     */
+    int getBonus();
 
     /**
      * Gets the score for the 'lower' scoring options. In our implementation 

@@ -58,9 +58,9 @@ public class YahtzeeModel implements IYahtzeeModel {
         IPlayer highestScoringPlayer = null;
         int highestScore = 0;
         for (IPlayer player : players) {
-            if (player.getScore() > highestScore) {
+            if (player.getScoreCard().getTotalScore() > highestScore) {
                 highestScoringPlayer = player;
-                highestScore = player.getScore();
+                highestScore = player.getScoreCard().getTotalScore();
             }
         }
         return highestScoringPlayer;
@@ -72,7 +72,7 @@ public class YahtzeeModel implements IYahtzeeModel {
      */
     @Override
     public int getTotalRounds() {
-        return Constants.getNumberOfRounds();
+        return Constants.numberOfRounds;
     }
 
     
@@ -94,7 +94,7 @@ public class YahtzeeModel implements IYahtzeeModel {
         // This logic ensures that the game never goes to '14' rounds, as this could mean
         // that a downstream GUI briefly shows 'round 14' before the game ends.
         if (playerFinishingTurn.getPlayingOrder() == this.players.size() - 1) {
-            if (this.currentRound >= Constants.getNumberOfRounds() - 1) {
+            if (this.currentRound >= Constants.numberOfRounds - 1) {
                 this.isDone = true;
                 this.activePlayer = null;
                 return;
