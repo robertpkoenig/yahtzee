@@ -12,7 +12,11 @@ public class FivesScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int score = 0;
+        for (IDie die : dice) {
+            if (die.getCurrentFace() == 5) score += 5;
+        }
+        return score;
     }
     
 }

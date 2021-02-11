@@ -12,7 +12,11 @@ public class OnesScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int score = 0;
+        for (IDie die : dice) {
+            if (die.getCurrentFace() ==1) score++;
+        }
+        return score;
     }
     
 }

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import org.mockito.*;
 
-public class LowerScoringOptionUnitTests {
+public class UpperScoringOptionUnitTests {
     
     IScoringOption ones;
     IScoringOption twos;
@@ -38,7 +38,7 @@ public class LowerScoringOptionUnitTests {
             // add two die of each value to the die list to test
             for (int j = 0 ; j < 2 ; j++) {
                IDie newDie = Mockito.mock(IDie.class);
-               Mockito.when(newDie.getCurrentFace()).thenReturn(i);
+               Mockito.when(newDie.getCurrentFace()).thenReturn(i + 1);
                dice.add(newDie);
             }
        }
@@ -53,31 +53,31 @@ public class LowerScoringOptionUnitTests {
     @Test
     void testTwos() {
         twos.recordScoreForThisOption(dice);
-        assertEquals(2, twos.getScoreRecordedForThisOption());
+        assertEquals(4, twos.getScoreRecordedForThisOption());
     } 
  
     @Test
     void testThrees() {
         threes.recordScoreForThisOption(dice);
-        assertEquals(2, threes.getScoreRecordedForThisOption());
+        assertEquals(6, threes.getScoreRecordedForThisOption());
     } 
   
     @Test
     void testFours() {
         fours.recordScoreForThisOption(dice);
-        assertEquals(2, fours.getScoreRecordedForThisOption());
+        assertEquals(8, fours.getScoreRecordedForThisOption());
     } 
    
     @Test
     void testFives() {
         fives.recordScoreForThisOption(dice);
-        assertEquals(2, fives.getScoreRecordedForThisOption());
+        assertEquals(10, fives.getScoreRecordedForThisOption());
     } 
     
     @Test
     void testSixes() {
         sixes.recordScoreForThisOption(dice);
-        assertEquals(2, sixes.getScoreRecordedForThisOption());
+        assertEquals(12, sixes.getScoreRecordedForThisOption());
     } 
           
     @Test

@@ -12,7 +12,11 @@ public class ThreesScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int score = 0;
+        for (IDie die : dice) {
+            if (die.getCurrentFace() == 3) score += 3;
+        }
+        return score;
     }
     
 }

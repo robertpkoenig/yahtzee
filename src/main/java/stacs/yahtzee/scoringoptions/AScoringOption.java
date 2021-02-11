@@ -19,7 +19,7 @@ public abstract class AScoringOption implements IScoringOption {
 
     @Override
     public void recordScoreForThisOption(List<IDie> dice) throws IllegalStateException {
-        if (this.scoreRecorded == -1) throw new IllegalStateException();
+        if (this.scoreRecorded != -1) throw new IllegalStateException();
         this.scoreRecorded = calculateScoreForThisOption(dice);
     }
     
