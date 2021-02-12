@@ -12,7 +12,21 @@ public class ThreeOfKindScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int[] counts = new int[dice.size()];
+        int sum = 0;
+        boolean threeOfKindFound = false;
+
+        for (IDie die : dice) {
+            // subtract one from face value to zero index
+            counts[die.getCurrentFace() - 1]++;
+        }
+        for (int count : counts) if (count >= 3) threeOfKindFound = true;
+        if (!threeOfKindFound) return 0;
+
+        for (IDie die : dice) {
+            sum += die.getCurrentFace();
+        }
+        return sum;
     }
     
 }

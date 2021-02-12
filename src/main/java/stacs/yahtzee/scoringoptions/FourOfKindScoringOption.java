@@ -12,7 +12,22 @@ public class FourOfKindScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int[] counts = new int[dice.size()];
+        int sum = 0;
+        boolean fourOfKindFound = false;
+
+        for (IDie die : dice) {
+            // subtract one from face value to zero index
+            counts[die.getCurrentFace() - 1]++;
+        }
+        for (int count : counts) if (count >= 4) fourOfKindFound = true;
+        if (!fourOfKindFound) return 0;
+
+        for (IDie die : dice) {
+            sum += die.getCurrentFace();
+        }
+        return sum;
+
     }
     
 }

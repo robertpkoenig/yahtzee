@@ -12,7 +12,9 @@ public class YahtzeeScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int firstDiceValue = dice.get(0).getCurrentFace();
+        for (IDie die : dice) if (die.getCurrentFace() != firstDiceValue) return 0;
+        return 50;
     }
     
 }

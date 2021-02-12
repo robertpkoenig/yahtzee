@@ -12,7 +12,9 @@ public class ChanceScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        return 0;
+        int sumOfDiceFaceValues = 0;
+        for (IDie die : dice) sumOfDiceFaceValues += die.getCurrentFace();
+        return sumOfDiceFaceValues;
     }
     
 }

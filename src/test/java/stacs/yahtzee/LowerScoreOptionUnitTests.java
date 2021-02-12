@@ -3,13 +3,11 @@ package stacs.yahtzee;
 import stacs.yahtzee.scoringoptions.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.*;
@@ -172,19 +170,19 @@ public class LowerScoreOptionUnitTests {
     void testSmallStraightTrue() {
         dice = new ArrayList<>();
         IDie newDie1 = Mockito.mock(IDie.class);
-        Mockito.when(newDie1.getCurrentFace()).thenReturn(1);
+        Mockito.when(newDie1.getCurrentFace()).thenReturn(2);
         dice.add(newDie1);
         IDie newDie2 = Mockito.mock(IDie.class);
-        Mockito.when(newDie2.getCurrentFace()).thenReturn(2);
+        Mockito.when(newDie2.getCurrentFace()).thenReturn(3);
         dice.add(newDie2); 
         IDie newDie3 = Mockito.mock(IDie.class);
-        Mockito.when(newDie3.getCurrentFace()).thenReturn(3);
+        Mockito.when(newDie3.getCurrentFace()).thenReturn(4);
         dice.add(newDie3); 
         IDie newDie4 = Mockito.mock(IDie.class);
-        Mockito.when(newDie4.getCurrentFace()).thenReturn(4);
+        Mockito.when(newDie4.getCurrentFace()).thenReturn(5);
         dice.add(newDie4); 
         IDie newDie5 = Mockito.mock(IDie.class);
-        Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
+        Mockito.when(newDie5.getCurrentFace()).thenReturn(5);
         dice.add(newDie5);
         // returned value should be sum of all dice faces
         assertEquals(30, smallStraight.calculateScoreForThisOption(dice));
@@ -212,9 +210,8 @@ public class LowerScoreOptionUnitTests {
         assertEquals(0, smallStraight.calculateScoreForThisOption(dice));
     }
 
-
     @Test
-    void testLargeStraightTrue() {
+    void testLargeStraightTrueOne() {
         dice = new ArrayList<>();
         IDie newDie1 = Mockito.mock(IDie.class);
         Mockito.when(newDie1.getCurrentFace()).thenReturn(1);
@@ -230,6 +227,28 @@ public class LowerScoreOptionUnitTests {
         dice.add(newDie4); 
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(5);
+        dice.add(newDie5);
+        // returned value should be sum of all dice faces
+        assertEquals(40, largeStraight.calculateScoreForThisOption(dice));
+    }
+
+    @Test
+    void testLargeStraightTrueTwo() {
+        dice = new ArrayList<>();
+        IDie newDie1 = Mockito.mock(IDie.class);
+        Mockito.when(newDie1.getCurrentFace()).thenReturn(2);
+        dice.add(newDie1);
+        IDie newDie2 = Mockito.mock(IDie.class);
+        Mockito.when(newDie2.getCurrentFace()).thenReturn(3);
+        dice.add(newDie2); 
+        IDie newDie3 = Mockito.mock(IDie.class);
+        Mockito.when(newDie3.getCurrentFace()).thenReturn(4);
+        dice.add(newDie3); 
+        IDie newDie4 = Mockito.mock(IDie.class);
+        Mockito.when(newDie4.getCurrentFace()).thenReturn(5);
+        dice.add(newDie4); 
+        IDie newDie5 = Mockito.mock(IDie.class);
+        Mockito.when(newDie5.getCurrentFace()).thenReturn(6);
         dice.add(newDie5);
         // returned value should be sum of all dice faces
         assertEquals(40, largeStraight.calculateScoreForThisOption(dice));
@@ -264,23 +283,23 @@ public class LowerScoreOptionUnitTests {
         Mockito.when(newDie1.getCurrentFace()).thenReturn(2);
         dice.add(newDie1);
         IDie newDie2 = Mockito.mock(IDie.class);
-        Mockito.when(newDie2.getCurrentFace()).thenReturn(2);
+        Mockito.when(newDie2.getCurrentFace()).thenReturn(3);
         dice.add(newDie2); 
         IDie newDie3 = Mockito.mock(IDie.class);
         Mockito.when(newDie3.getCurrentFace()).thenReturn(2);
         dice.add(newDie3); 
         IDie newDie4 = Mockito.mock(IDie.class);
-        Mockito.when(newDie4.getCurrentFace()).thenReturn(2);
+        Mockito.when(newDie4.getCurrentFace()).thenReturn(5);
         dice.add(newDie4); 
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
         // returned value should be sum of all dice faces
-        assertEquals(10, chance.calculateScoreForThisOption(dice));
+        assertEquals(14, chance.calculateScoreForThisOption(dice));
     }
 
     @Test
-    void testYahtzeeTrue() {
+    void testYahtzeeTrueOne() {
         dice = new ArrayList<>();
         IDie newDie1 = Mockito.mock(IDie.class);
         Mockito.when(newDie1.getCurrentFace()).thenReturn(2);
@@ -296,6 +315,28 @@ public class LowerScoreOptionUnitTests {
         dice.add(newDie4); 
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
+        dice.add(newDie5);
+        // returned value should be sum of all dice faces
+        assertEquals(50, yahtzee.calculateScoreForThisOption(dice));
+    }
+
+    @Test
+    void testYahtzeeTrueTwo() {
+        dice = new ArrayList<>();
+        IDie newDie1 = Mockito.mock(IDie.class);
+        Mockito.when(newDie1.getCurrentFace()).thenReturn(6);
+        dice.add(newDie1);
+        IDie newDie2 = Mockito.mock(IDie.class);
+        Mockito.when(newDie2.getCurrentFace()).thenReturn(6);
+        dice.add(newDie2);   
+        IDie newDie3 = Mockito.mock(IDie.class);
+        Mockito.when(newDie3.getCurrentFace()).thenReturn(6);
+        dice.add(newDie3); 
+        IDie newDie4 = Mockito.mock(IDie.class);
+        Mockito.when(newDie4.getCurrentFace()).thenReturn(6);
+        dice.add(newDie4); 
+        IDie newDie5 = Mockito.mock(IDie.class);
+        Mockito.when(newDie5.getCurrentFace()).thenReturn(6);
         dice.add(newDie5);
         // returned value should be sum of all dice faces
         assertEquals(50, yahtzee.calculateScoreForThisOption(dice));
