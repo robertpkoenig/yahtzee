@@ -1,6 +1,5 @@
 package stacs.yahtzee.implementation;
 
-import stacs.yahtzee.implementation.scoringoptions.*;
 import stacs.yahtzee.*;
 
 import java.util.ArrayList;
@@ -35,9 +34,6 @@ public class ScoreCard implements IScoreCard {
 
     @Override
     public int getTotalScore() {
-        System.out.println(getUpperScoreWithoutBonus());
-        System.out.println(getBonus());
-        System.out.println(getLowerScore());
         return getUpperScoreWithoutBonus() + getBonus() + getLowerScore();
     }
 

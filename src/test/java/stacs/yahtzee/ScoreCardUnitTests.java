@@ -2,7 +2,6 @@ package stacs.yahtzee;
 
 import stacs.yahtzee.implementation.Constants;
 import stacs.yahtzee.implementation.ScoreCard;
-import stacs.yahtzee.implementation.scoringoptions.LargeStraightScoringOption;
 
 import java.util.ArrayList;
 import java.util.List;
