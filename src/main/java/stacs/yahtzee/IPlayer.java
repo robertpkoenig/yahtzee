@@ -51,7 +51,7 @@ public interface IPlayer {
     IScoreCard getScoreCard();
 
     /**
-     * Sets this player's score card to the one passed as a parameter
+     * Sets this player's score card
      */
     void setScoreCard(IScoreCard scoreCard);
 

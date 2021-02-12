@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThrows;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -63,8 +64,13 @@ public class YahtzeeModelUnitTests {
   } 
 
   @Test
-  void testInitialHighestScoringPlayerIsNull() {
-    assertNull(model.getPlayerWithHighestScore());
+  void testInitialHighestScoringPlayerListIsEmpty() {
+    for (int i = 0 ; i < players.size() ; i++) {
+      IScoreCard scoreCard = Mockito.mock(IScoreCard.class);
+      Mockito.when(scoreCard.getTotalScore()).thenReturn(0);
+      Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
+    }
+    assertEquals(0, model.getPlayersWithHighestScore().size());
   }
 
   @Test
@@ -114,15 +120,53 @@ public class YahtzeeModelUnitTests {
     assertEquals(dice, model.getDice());
   }
 
-  // Create an integration test to see that I am accurately getting the highest score
-  // @Test
-  // void testGetPlayerWithHighestScore() {
-  //   // the mock player objects are instructed to return their player
-  //   // order as their score, so the highest score should be player 5 with 5
-  //   for (int i = 0 ; i < players.size() ; i++) {
-  //     Mockito.when(players.get(i).getTotalScore()).thenReturn(i);
-  //   }
-  //   assertEquals(players.get(5), model.getPlayerWithHighestScore());
-  // }
+  @Test
+  void testGetSinglePlayerWithHighestScore() {
+    // the mock player objects are instructed to return their player
+    // order as their score, so the highest score should be player 5 with 5
+    for (int i = 0 ; i < players.size() ; i++) {
+      IScoreCard scoreCard = Mockito.mock(IScoreCard.class);
+      Mockito.when(scoreCard.getTotalScore()).thenReturn(i);
+      Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
+    }
+    assertEquals(players.get(numPlayers - 1), model.getPlayersWithHighestScore().get(0));
+  }
 
+  @Test
+  void testGetSixPlayersWithHighestScore() {
+    for (int i = 0 ; i < players.size() ; i++) {
+      IScoreCard scoreCard = Mockito.mock(IScoreCard.class);
+      Mockito.when(scoreCard.getTotalScore()).thenReturn(10);
+      Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
+    }
+    assertEquals(6, model.getPlayersWithHighestScore().size());
+  }
+
+  @Test
+  void testGetWinnerWhenGameIsDone() {
+    // play the game through
+    for (int i = 0 ; i < Constants.numberOfRounds ; i++) {
+      for (int j = 0 ; j < numPlayers ; j++) {
+        model.registerTurnFinished(model.getActivePlayer());
+      }  
+    }
+    for (int i = 0 ; i < players.size() ; i++) {
+      IScoreCard scoreCard = Mockito.mock(IScoreCard.class);
+      Mockito.when(scoreCard.getTotalScore()).thenReturn(i);
+      Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
+    }
+    assertEquals(players.get(numPlayers - 1), model.getWinners().get(0));
+  }
+
+  @Test
+  void testGetWinnerBeforeGameIsDone() {
+    for (int i = 0 ; i < players.size() ; i++) {
+      IScoreCard scoreCard = Mockito.mock(IScoreCard.class);
+      Mockito.when(scoreCard.getTotalScore()).thenReturn(i);
+      Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
+    }
+    assertThrows(IllegalStateException.class, () -> {
+      model.getWinners();
+    });
+  } 
 }

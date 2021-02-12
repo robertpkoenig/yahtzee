@@ -2,6 +2,7 @@ package stacs.yahtzee.implementation;
 
 import stacs.yahtzee.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,7 +40,6 @@ public class YahtzeeModel implements IYahtzeeModel {
         return this.activePlayer;
     }
 
-    
     /** 
      * @return int
      */
@@ -48,24 +48,27 @@ public class YahtzeeModel implements IYahtzeeModel {
         return this.currentRound;
     }
 
-    
     /** 
      * @return Player
      */
     @Override
-    public IPlayer getPlayerWithHighestScore() {
-        IPlayer highestScoringPlayer = null;
+    public List<IPlayer> getPlayersWithHighestScore() {
+        List<IPlayer> highestScoringPlayers = new ArrayList<>();
         int highestScore = 0;
         for (IPlayer player : players) {
             if (player.getScoreCard().getTotalScore() > highestScore) {
-                highestScoringPlayer = player;
+                highestScoringPlayers.clear();
+                highestScoringPlayers.add(player);
                 highestScore = player.getScoreCard().getTotalScore();
             }
+            else if (highestScore > 0 &&
+                    player.getScoreCard().getTotalScore() == highestScore) {
+                highestScoringPlayers.add(player);
+            }
         }
-        return highestScoringPlayer;
+        return highestScoringPlayers;
     }
 
-    
     /** 
      * @return int
      */
@@ -101,12 +104,11 @@ public class YahtzeeModel implements IYahtzeeModel {
             else this.currentRound++;
         }
 
-        int newActivePlayerOrder = (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
+        int newActivePlayerOrder = 
+            (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
         setActivePlayer(newActivePlayerOrder);
     }
-
     
-
     @Override
     public List<IDie> getDice() {
         return this.dice;
@@ -115,6 +117,12 @@ public class YahtzeeModel implements IYahtzeeModel {
     @Override
     public List<IPlayer> getPlayerList() {
         return  this.players;
+    }
+
+    @Override
+    public List<IPlayer> getWinners() throws IllegalStateException{
+        if (!this.isDone) throw new IllegalStateException();
+        else return getPlayersWithHighestScore();
     }
 
 }

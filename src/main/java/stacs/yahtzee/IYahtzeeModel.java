@@ -67,7 +67,7 @@ public interface IYahtzeeModel {
      * is finished, the person with the highest score is the winner. If
      * no player yet has a score, it returns null.
      */
-    IPlayer getPlayerWithHighestScore();
+    List<IPlayer> getPlayersWithHighestScore();
 
     /**
      * Method to check if the game is finished. This always returns true
@@ -75,5 +75,12 @@ public interface IYahtzeeModel {
      * @return True if the game is finished, otherwise false
      */
     boolean isDone();
+
+    /**
+     * If the game is done, this method returns a list containing either the player
+     * who won, or the players who tied for first place.
+     * @return
+     */
+    List<IPlayer> getWinners();
 
 }
