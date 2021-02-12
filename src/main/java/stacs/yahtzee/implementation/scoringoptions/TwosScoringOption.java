@@ -1,10 +1,10 @@
-package stacs.yahtzee.scoringoptions;
+package stacs.yahtzee.implementation.scoringoptions;
 
 import java.util.List;
 
 import stacs.yahtzee.IDie;
 
-public class ChanceScoringOption extends AScoringOption {
+public class TwosScoringOption extends AScoringOption {
 
     static final String name = "Twos";
     static final String description = 
@@ -12,9 +12,11 @@ public class ChanceScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        int sumOfDiceFaceValues = 0;
-        for (IDie die : dice) sumOfDiceFaceValues += die.getCurrentFace();
-        return sumOfDiceFaceValues;
+        int score = 0;
+        for (IDie die : dice) {
+            if (die.getCurrentFace() == 2) score += 2;
+        }
+        return score;
     }
     
 }

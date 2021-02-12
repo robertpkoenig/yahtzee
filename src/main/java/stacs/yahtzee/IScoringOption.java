@@ -1,6 +1,4 @@
-package stacs.yahtzee.scoringoptions;
-
-import stacs.yahtzee.IDie;
+package stacs.yahtzee;
 
 import java.util.List;
 

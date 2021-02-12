@@ -1,8 +1,9 @@
-package stacs.yahtzee.scoringoptions;
+package stacs.yahtzee.implementation.scoringoptions;
 
 import java.util.List;
 
 import stacs.yahtzee.IDie;
+import stacs.yahtzee.IScoringOption;
 
 public abstract class AScoringOption implements IScoringOption {
 

@@ -1,20 +1,20 @@
-package stacs.yahtzee.scoringoptions;
+package stacs.yahtzee.implementation.scoringoptions;
 
 import java.util.List;
 
 import stacs.yahtzee.IDie;
 
-public class FivesScoringOption extends AScoringOption {
+public class SixesScoringOption extends AScoringOption {
 
-    static final String name = "Fives";
+    static final String name = "Sixes";
     static final String description = 
-        "Number of dice with value 5 multiplied by 5";
+        "Number of dice with value 6 multiplied by 6";
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
         int score = 0;
         for (IDie die : dice) {
-            if (die.getCurrentFace() == 5) score += 5;
+            if (die.getCurrentFace() == 6) score += 6;
         }
         return score;
     }

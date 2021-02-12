@@ -1,6 +1,6 @@
 package stacs.yahtzee;
 
-import stacs.yahtzee.scoringoptions.*;
+import stacs.yahtzee.implementation.scoringoptions.*;
 
 import static org.junit.Assert.assertEquals;
 

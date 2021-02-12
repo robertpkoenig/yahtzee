@@ -1,4 +1,4 @@
-package stacs.yahtzee;
+package stacs.yahtzee.implementation;
 
 /**
  * Defines the constants for a game of Yahtzee

@@ -1,4 +1,6 @@
-package stacs.yahtzee;
+package stacs.yahtzee.implementation;
+
+import stacs.yahtzee.*;
 
 import java.util.List;
 

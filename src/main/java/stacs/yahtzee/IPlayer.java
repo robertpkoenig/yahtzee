@@ -1,7 +1,5 @@
 package stacs.yahtzee;
 
-import stacs.yahtzee.scoringoptions.IScoringOption;
-
 import java.util.List;
 
 /**

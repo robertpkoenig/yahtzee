@@ -1,8 +1,8 @@
-package stacs.yahtzee.scoringoptions;
+package stacs.yahtzee.implementation.scoringoptions;
 
 import java.util.List;
 
-import stacs.yahtzee.Constants;
+import stacs.yahtzee.implementation.Constants;
 import stacs.yahtzee.IDie;
 
 public class LargeStraightScoringOption extends AScoringOption {

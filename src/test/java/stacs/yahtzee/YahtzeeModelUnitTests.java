@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 
 import org.mockito.*;
 
+import stacs.yahtzee.implementation.*;
+
 /**
  * 
  */

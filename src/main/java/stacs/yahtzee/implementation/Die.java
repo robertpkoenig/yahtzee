@@ -1,4 +1,6 @@
-package stacs.yahtzee;
+package stacs.yahtzee.implementation;
+
+import stacs.yahtzee.IDie;
 
 import java.util.Random;
 

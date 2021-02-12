@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.Test;
 
+import stacs.yahtzee.implementation.Die;
+
 public class DieUnitTests {
 
     @Test

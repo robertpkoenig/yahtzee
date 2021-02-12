@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import org.mockito.*;
 
+import stacs.yahtzee.implementation.Player;
+
 /**
  * Tests of the Player model in the game of Yahtzee
  */
