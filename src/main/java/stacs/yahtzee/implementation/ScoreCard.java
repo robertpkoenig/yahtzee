@@ -22,15 +22,8 @@ public class ScoreCard implements IScoreCard {
     private IScoringOption largeStraight;
     private IScoringOption chance;
     private IScoringOption yahtzee;
-    
-    IYahtzeeModel game;
 
     public ScoreCard() {}
-
-    @Override
-    public void setGame(IYahtzeeModel game) {
-       this.game = game;
-    }
 
     @Override
     public int getTotalScore() {
@@ -45,7 +38,7 @@ public class ScoreCard implements IScoreCard {
         searchList.addAll(getUpperScoringOptions());
         for (IScoringOption scoringOption : searchList) {
             if (scoringOption.getScoreRecordedForThisOption() != -1) continue;
-            if (scoringOption.calculateScoreForThisOption(this.game.getDice()) > 0) {
+            if (scoringOption.calculateScoreForThisOption(dice) > 0) {
                 outputList.add(scoringOption);
             }
         }
@@ -91,8 +84,7 @@ public class ScoreCard implements IScoreCard {
         return (getUpperScoreWithoutBonus() >= Constants.upperBonusThreshold) ? Constants.upperBonus : 0;
     }
 
-    @Override
-    public List<IScoringOption> getUpperScoringOptions() {
+    private List<IScoringOption> getUpperScoringOptions() {
         List<IScoringOption> upperScoringOptions = new ArrayList<>();
         upperScoringOptions.add(this.ones);
         upperScoringOptions.add(this.twos);
@@ -103,8 +95,7 @@ public class ScoreCard implements IScoreCard {
         return upperScoringOptions;
     }
 
-    @Override
-    public List<IScoringOption> getLowerScoringOptions() {
+    private List<IScoringOption> getLowerScoringOptions() {
         List<IScoringOption> lowerScoringOptions = new ArrayList<>();
         lowerScoringOptions.add(this.threeOfKind);
         lowerScoringOptions.add(this.fourOfKind);
@@ -116,81 +107,108 @@ public class ScoreCard implements IScoreCard {
         return lowerScoringOptions;
     }
 
-    @Override
-    public void setOnesScoringOption(IScoringOption onesScoringOption) {
-        this.ones = onesScoringOption;
+    public IScoringOption getOnes() {
+        return ones;
     }
 
-    @Override
-    public void setTwosScoringOption(IScoringOption twosScoringOption) {
-        this.twos = twosScoringOption;
-
+    public void setOnes(IScoringOption ones) {
+        this.ones = ones;
     }
 
-    @Override
-    public void setThreesScoringOption(IScoringOption threesScoringOption) {
-        this.threes = threesScoringOption;
-
+    public IScoringOption getTwos() {
+        return twos;
     }
 
-    @Override
-    public void setFoursScoringOption(IScoringOption foursScoringOption) {
-        this.fours = foursScoringOption;
-
+    public void setTwos(IScoringOption twos) {
+        this.twos = twos;
     }
 
-    @Override
-    public void setFivesScoringOption(IScoringOption fivesScoringOption) {
-        this.fives = fivesScoringOption;
-
+    public IScoringOption getThrees() {
+        return threes;
     }
 
-    @Override
-    public void setSixesScoringOption(IScoringOption sixesScoringOption) {
-        this.sixes = sixesScoringOption;
-
+    public void setThrees(IScoringOption threes) {
+        this.threes = threes;
     }
 
-    @Override
-    public void setThreeOfKindScoringOption(IScoringOption threeOfKindScoringOption) {
-        this.threeOfKind = threeOfKindScoringOption;
-
+    public IScoringOption getFours() {
+        return fours;
     }
 
-    @Override
-    public void setFourOfKindScoringOption(IScoringOption fourOfKindScoringOption) {
-        this.fourOfKind = fourOfKindScoringOption;
-
+    public void setFours(IScoringOption fours) {
+        this.fours = fours;
     }
 
-    @Override
-    public void setFullHouseScoringOption(IScoringOption fullHouseScoringOption) {
-        this.fullHouse = fullHouseScoringOption;
-
+    public IScoringOption getFives() {
+        return fives;
     }
 
-    @Override
-    public void setSmallStraightScoringOption(IScoringOption smallStraightScoringOption) {
-        this.smallStraight = smallStraightScoringOption;
-
+    public void setFives(IScoringOption fives) {
+        this.fives = fives;
     }
 
-    @Override
-    public void setLargeStraightScoringOption(IScoringOption largeStraightScoringOption) {
-        this.largeStraight = largeStraightScoringOption;
-
+    public IScoringOption getSixes() {
+        return sixes;
     }
 
-    @Override
-    public void setChanceScoringOption(IScoringOption chanceScoringOption) {
-        this.chance = chanceScoringOption;
-
+    public void setSixes(IScoringOption sixes) {
+        this.sixes = sixes;
     }
 
-    @Override
-    public void setYahtzeeScoringOption(IScoringOption yahtzeeScoringOption) {
-        this.yahtzee = yahtzeeScoringOption;
-
+    public IScoringOption getThreeOfKind() {
+        return threeOfKind;
     }
-    
+
+    public void setThreeOfKind(IScoringOption threeOfKind) {
+        this.threeOfKind = threeOfKind;
+    }
+
+    public IScoringOption getFourOfKind() {
+        return fourOfKind;
+    }
+
+    public void setFourOfKind(IScoringOption fourOfKind) {
+        this.fourOfKind = fourOfKind;
+    }
+
+    public IScoringOption getFullHouse() {
+        return fullHouse;
+    }
+
+    public void setFullHouse(IScoringOption fullHouse) {
+        this.fullHouse = fullHouse;
+    }
+
+    public IScoringOption getSmallStraight() {
+        return smallStraight;
+    }
+
+    public void setSmallStraight(IScoringOption smallStraight) {
+        this.smallStraight = smallStraight;
+    }
+
+    public IScoringOption getLargeStraight() {
+        return largeStraight;
+    }
+
+    public void setLargeStraight(IScoringOption largeStraight) {
+        this.largeStraight = largeStraight;
+    }
+
+    public IScoringOption getChance() {
+        return chance;
+    }
+
+    public void setChance(IScoringOption chance) {
+        this.chance = chance;
+    }
+
+    public IScoringOption getYahtzee() {
+        return yahtzee;
+    }
+
+    public void setYahtzee(IScoringOption yahtzee) {
+        this.yahtzee = yahtzee;
+    }
+
 }

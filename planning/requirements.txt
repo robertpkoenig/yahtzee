@@ -5,6 +5,7 @@ The model must:
 - Accomodate exactly 13 rounds per game
 - Give each player a turn on each round
 - Force a player to enter a score on each turn
+- Limit a player to three rolls per round
 
 The model must be able to:
 
@@ -12,7 +13,6 @@ The model must be able to:
 - Tell the active player what combinations they have already played
 - Tell who is in the lead at any time
 - Tell the active player what combinations their current dice can already make
-- Tell the active player what potential combinations they could make
 
 The assignment spec:
 

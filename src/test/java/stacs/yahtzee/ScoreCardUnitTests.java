@@ -1,7 +1,6 @@
 package stacs.yahtzee;
 
-import stacs.yahtzee.implementation.Constants;
-import stacs.yahtzee.implementation.ScoreCard;
+import stacs.yahtzee.implementation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,22 +14,21 @@ import org.mockito.*;
 
 public class ScoreCardUnitTests {
 
-    IScoreCard scoreCard;
-    IYahtzeeModel game;
+    ScoreCard scoreCard;
     List<IDie> dice;
-    IScoringOption onesScoringOption;
-    IScoringOption twosScoringOption;
-    IScoringOption threesScoringOption;
-    IScoringOption foursScoringOption;
-    IScoringOption fivesScoringOption;
-    IScoringOption sixesScoringOption;
-    IScoringOption threeOfKindScoringOption;
-    IScoringOption fourOfKindScoringOption;
-    IScoringOption fullHouseScoringOption;
-    IScoringOption smallStraightScoringOption;
-    IScoringOption largeStraightScoringOption;
-    IScoringOption chanceScoringOption;
-    IScoringOption yahtzeeScoringOption;
+    IScoringOption ones;
+    IScoringOption twos;
+    IScoringOption threes;
+    IScoringOption fours;
+    IScoringOption fives;
+    IScoringOption sixes;
+    IScoringOption threeOfKind;
+    IScoringOption fourOfKind;
+    IScoringOption fullHouse;
+    IScoringOption smallStraight;
+    IScoringOption largeStraight;
+    IScoringOption chance;
+    IScoringOption yahtzee;
 
     @BeforeEach
     void setup() {
@@ -41,65 +39,61 @@ public class ScoreCardUnitTests {
 
         dice = new ArrayList<>();
 
-        game = Mockito.mock(IYahtzeeModel.class);
-        // Mockito.when(game.getDice()).thenReturn(dice);
-        scoreCard.setGame(game);
+        ones = Mockito.mock(IScoringOption.class);
+        Mockito.when(ones.getScoreRecordedForThisOption()).thenReturn(1);
+        scoreCard.setOnes(ones);
 
-        onesScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(onesScoringOption.getScoreRecordedForThisOption()).thenReturn(1);
-        scoreCard.setOnesScoringOption(onesScoringOption);
+        twos = Mockito.mock(IScoringOption.class);
+        Mockito.when(twos.getScoreRecordedForThisOption()).thenReturn(2);
+        scoreCard.setTwos(twos);
 
-        twosScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(twosScoringOption.getScoreRecordedForThisOption()).thenReturn(2);
-        scoreCard.setTwosScoringOption(twosScoringOption);
+        threes = Mockito.mock(IScoringOption.class);
+        Mockito.when(threes.getScoreRecordedForThisOption()).thenReturn(-1);
+        Mockito.when(threes.calculateScoreForThisOption(dice)).thenReturn(5);
+        scoreCard.setThrees(threes);
 
-        threesScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(threesScoringOption.getScoreRecordedForThisOption()).thenReturn(-1);
-        Mockito.when(threesScoringOption.calculateScoreForThisOption(dice)).thenReturn(5);
-        scoreCard.setThreesScoringOption(threesScoringOption);
+        fours = Mockito.mock(IScoringOption.class);
+        Mockito.when(fours.getScoreRecordedForThisOption()).thenReturn(3);
+        scoreCard.setFours(fours);
 
-        foursScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(foursScoringOption.getScoreRecordedForThisOption()).thenReturn(3);
-        scoreCard.setFoursScoringOption(foursScoringOption);
+        fives = Mockito.mock(IScoringOption.class);
+        Mockito.when(fives.getScoreRecordedForThisOption()).thenReturn(-1);
+        Mockito.when(fives.calculateScoreForThisOption(dice)).thenReturn(6);
+        scoreCard.setFives(fives);
 
-        fivesScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(fivesScoringOption.getScoreRecordedForThisOption()).thenReturn(-1);
-        Mockito.when(fivesScoringOption.calculateScoreForThisOption(dice)).thenReturn(6);
-        scoreCard.setFivesScoringOption(fivesScoringOption);
+        sixes = Mockito.mock(IScoringOption.class);
+        Mockito.when(sixes.getScoreRecordedForThisOption()).thenReturn(4);
+        scoreCard.setSixes(sixes);
 
-        sixesScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(sixesScoringOption.getScoreRecordedForThisOption()).thenReturn(4);
-        scoreCard.setSixesScoringOption(sixesScoringOption);
+        threeOfKind = Mockito.mock(IScoringOption.class);
+        Mockito.when(threeOfKind.getScoreRecordedForThisOption()).thenReturn(5);
+        scoreCard.setThreeOfKind(threeOfKind);
 
-        threeOfKindScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(threeOfKindScoringOption.getScoreRecordedForThisOption()).thenReturn(5);
-        scoreCard.setThreeOfKindScoringOption(threeOfKindScoringOption);
+        fourOfKind = Mockito.mock(IScoringOption.class);
+        Mockito.when(fourOfKind.getScoreRecordedForThisOption()).thenReturn(6);
+        scoreCard.setFourOfKind(fourOfKind);
 
-        fourOfKindScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(fourOfKindScoringOption.getScoreRecordedForThisOption()).thenReturn(6);
-        scoreCard.setFourOfKindScoringOption(fourOfKindScoringOption);
+        fullHouse = Mockito.mock(IScoringOption.class);
+        Mockito.when(fullHouse.getScoreRecordedForThisOption()).thenReturn(7);
+        scoreCard.setFullHouse(fullHouse);
 
-        fullHouseScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(fullHouseScoringOption.getScoreRecordedForThisOption()).thenReturn(7);
-        scoreCard.setFullHouseScoringOption(fullHouseScoringOption);
+        smallStraight = Mockito.mock(IScoringOption.class);
+        Mockito.when(smallStraight.getScoreRecordedForThisOption()).thenReturn(8);
+        scoreCard.setSmallStraight(smallStraight);
 
-        smallStraightScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(smallStraightScoringOption.getScoreRecordedForThisOption()).thenReturn(8);
-        scoreCard.setSmallStraightScoringOption(smallStraightScoringOption);
+        largeStraight = Mockito.mock(IScoringOption.class);
+        Mockito.when(largeStraight.getScoreRecordedForThisOption()).thenReturn(-1);
+        Mockito.when(largeStraight.calculateScoreForThisOption(dice)).thenReturn(40);
+        scoreCard.setLargeStraight(largeStraight);
 
-        largeStraightScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(largeStraightScoringOption.getScoreRecordedForThisOption()).thenReturn(-1);
-        Mockito.when(largeStraightScoringOption.calculateScoreForThisOption(dice)).thenReturn(40);
-        scoreCard.setLargeStraightScoringOption(largeStraightScoringOption);
+        chance = Mockito.mock(IScoringOption.class);
+        Mockito.when(chance.getScoreRecordedForThisOption()).thenReturn(9);
+        scoreCard.setChance(chance);
 
-        chanceScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(chanceScoringOption.getScoreRecordedForThisOption()).thenReturn(9);
-        scoreCard.setChanceScoringOption(chanceScoringOption);
-
-        yahtzeeScoringOption = Mockito.mock(IScoringOption.class);
-        Mockito.when(yahtzeeScoringOption.getScoreRecordedForThisOption()).thenReturn(-1);
-        Mockito.when(yahtzeeScoringOption.calculateScoreForThisOption(dice)).thenReturn(0);
-        scoreCard.setYahtzeeScoringOption(yahtzeeScoringOption);
+        yahtzee = Mockito.mock(IScoringOption.class);
+        Mockito.when(yahtzee.getScoreRecordedForThisOption()).thenReturn(-1);
+        Mockito.when(yahtzee.calculateScoreForThisOption(dice)).thenReturn(0);
+        scoreCard.setYahtzee(yahtzee);
 
     }
 
@@ -116,7 +110,7 @@ public class ScoreCardUnitTests {
 
     @Test
     void testGetHighestScoringOption() {
-        assertEquals(largeStraightScoringOption, scoreCard.getHighestScoringOption(dice));
+        assertEquals(largeStraight, scoreCard.getHighestScoringOption(dice));
     }
 
     @Test
@@ -138,7 +132,7 @@ public class ScoreCardUnitTests {
 
     @Test
     void testGetBonus() {
-        Mockito.when(onesScoringOption.getScoreRecordedForThisOption()).thenReturn(63);
+        Mockito.when(ones.getScoreRecordedForThisOption()).thenReturn(63);
         // bonus of 35 given if upper score is above 63
         // given the new mockito instruction above, score should be 10 * 5 + 13 = 63
         assertEquals(Constants.upperBonus, scoreCard.getBonus());

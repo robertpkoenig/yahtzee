@@ -65,6 +65,6 @@ public interface IPlayer {
      * @return Returns true if the operation is succesful. Returns false if the player
      * attempted to use a scoring option they have already used.
      */
-    boolean useScoringOptionAndEndTurn(IScoringOption scoringOption);
+    boolean useScoringOptionAndEndTurn(IScoringOption scoringOption, List<IDie> dice);
 
 }

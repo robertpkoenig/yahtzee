@@ -57,9 +57,10 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public boolean useScoringOptionAndEndTurn(IScoringOption scoringOption) {
-        // TODO Auto-generated method stub
-        resetPlayerState();
+    public boolean useScoringOptionAndEndTurn(IScoringOption scoringOption, List<IDie> dice) {
+        scoringOption.recordScoreForThisOption(dice);
+        this.resetPlayerState();
+        this.endTurn();
         return false;
     }
 
@@ -70,7 +71,6 @@ public class Player implements IPlayer {
 
     private void endTurn() {
         this.game.registerTurnFinished(this);
-        this.keptDice.clear();
     }
 
     @Override

@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import org.mockito.*;
 
-import stacs.yahtzee.implementation.Player;
+import stacs.yahtzee.implementation.*;
 
 /**
  * Tests of the Player model in the game of Yahtzee
@@ -22,6 +22,7 @@ public class PlayerUnitTests {
     int playerNumber;
     IYahtzeeModel game;
     IScoreCard scoreCard;
+    IScoringOption scoringOption;
 
     @BeforeEach
     void setup() {
@@ -38,6 +39,7 @@ public class PlayerUnitTests {
         this.player.setKeptDice(new ArrayList<>());
         scoreCard = Mockito.mock(IScoreCard.class);
         this.player.setScoreCard(scoreCard);
+        this.scoringOption = Mockito.mock(IScoringOption.class);
     }
 
     @Test
@@ -74,7 +76,14 @@ public class PlayerUnitTests {
         assertEquals(0, player.getKeptDice().size());
     }
 
-    // TODO useScoringOptionAndEndTurn test
+    @Test
+    void testEndTurnResetsState() {
+        player.getKeptDice().add(game.getDice().get(2));
+        player.rollDice(); 
+        player.useScoringOptionAndEndTurn(scoringOption, null);
+        assertEquals(0, player.getKeptDice().size());
+        assertEquals(0, player.getNumberOfRollsCompleted());
+    }
     
     @Test
     void testGetScoreCard() {
