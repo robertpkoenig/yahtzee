@@ -48,6 +48,15 @@ public class ScoreCard implements IScoreCard {
     }
 
     @Override
+    public List<IScoringOption> getAllUnusedScoringOptions() {
+        List<IScoringOption> unusedScoringOptions = getAllScoringOptions();
+        for (IScoringOption usedScoringOption : getUsedScoringOptions()) {
+            unusedScoringOptions.remove(usedScoringOption);
+        }
+        return unusedScoringOptions;
+    }
+
+    @Override
     public IScoringOption getHighestScoringOption() {
         IScoringOption highestScoringOption = null;
         for (IScoringOption scoringOption : getUnusedScoringOptionsSatisfiedByCurrentDice()) {

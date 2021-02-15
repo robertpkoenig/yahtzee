@@ -2,7 +2,6 @@ package stacs.yahtzee;
 
 import stacs.yahtzee.implementation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;

@@ -21,13 +21,11 @@ public interface IScoreCard {
     /**
      * Returns the value of the bonus applied to the upper score if upper score
      * is above 63. The bonus is 35.
-     * @return
      */
     int getBonus();
 
     /**
      * Gets the score for the 'lower' scoring options. In our implementation 
-     * @return
      */
     int getLowerScore();
 
@@ -38,6 +36,12 @@ public interface IScoreCard {
      * current dice and which they have not already used
      */
     List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
+
+    /**
+     * Returns a list of all scoring options the person has not used, even if
+     * they are not satisfied by current dice.
+     */
+    List<IScoringOption> getAllUnusedScoringOptions();
 
     /**
      * Returns all the scoring option this player has used. This is used to test that
