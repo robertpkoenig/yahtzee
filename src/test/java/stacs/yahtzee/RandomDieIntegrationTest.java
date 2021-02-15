@@ -3,6 +3,7 @@ package stacs.yahtzee;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -24,12 +25,19 @@ public class RandomDieIntegrationTest {
     @BeforeAll
     static void setup() {
         game = new YahtzeeModel();
+
+
+        List<IDie> dice = new ArrayList<>();
         for (int i = 0 ; i < Constants.numberOfDice ; i++) {
-            game.addDie(new Die());
+            dice.add(new Die());
         }
-        game.addPlayer(playerOne = new Player());
-        game.addPlayer(playerTwo = new Player());
-        game.addPlayer(playerThree = new Player());
+        game.setDice(dice);
+
+        List<IPlayer> players = new ArrayList<>();
+        players.add(playerOne = new Player());
+        players.add(playerTwo = new Player());
+        players.add(playerThree = new Player());
+        game.setPlayers(players);
         game.setActivePlayer(0);
 
         randomGenerator = new Random();

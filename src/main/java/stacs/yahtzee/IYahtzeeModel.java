@@ -15,7 +15,7 @@ public interface IYahtzeeModel {
      * Create new 'dice' objects and add the game's list of dice.
      * The number of dice is specified in the constants file.
      */
-    void addDie(IDie die);
+    void setDice(List<IDie> newDice);
 
     /**
      * Returns the dice that belong to the current game
@@ -28,7 +28,7 @@ public interface IYahtzeeModel {
      * @param numPlayers The number of players specified as a parameter
      * in the constructor in the game object
      */
-    void addPlayer(IPlayer newPlayer);
+    void setPlayers(List<IPlayer> newPlayers);
 
     /**
      * Returns this game's list of players

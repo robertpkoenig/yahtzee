@@ -40,15 +40,16 @@ public class YahtzeeModelUnitTests {
       Mockito.when(usedScoringOptions.size()).thenReturn(1);
       Mockito.when(scoreCard.getUsedScoringOptions()).thenReturn(usedScoringOptions);
       players.add(newPlayer);
-      game.addPlayer(newPlayer);
     }
+
+    game.setPlayers(players);
 
     dice = new ArrayList<>();
     for (int i = 0 ; i < Constants.numberOfDice ; i++) {
       IDie newDie = Mockito.mock(IDie.class);
       dice.add(newDie);
-      game.addDie(newDie);
     }
+    game.setDice(dice);
 
     game.setActivePlayer(0);
   }

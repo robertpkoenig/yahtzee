@@ -2,6 +2,7 @@ package stacs.yahtzee;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -30,14 +31,18 @@ public class FixedDieIntegrationTest {
         game = new YahtzeeModel();
 
         // test die for testing scenarios with controlled die values
+        List<IDie> dice = new ArrayList<>();
         for (int i = 0 ; i < Constants.numberOfDice ; i++) {
             IDie testDie = Mockito.mock(IDie.class);
-            game.addDie(testDie);
+            dice.add(testDie);
         }
+        game.setDice(dice);
 
-        game.addPlayer(playerOne = new Player());
-        game.addPlayer(playerTwo = new Player());
-        game.addPlayer(playerThree = new Player());
+        List<IPlayer> players = new ArrayList<>();
+        players.add(playerOne = new Player());
+        players.add(playerTwo = new Player());
+        players.add(playerThree = new Player());
+        game.setPlayers(players);
         game.setActivePlayer(0);
 
         randomGenerator = new Random();

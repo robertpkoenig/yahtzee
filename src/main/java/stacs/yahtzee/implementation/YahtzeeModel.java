@@ -16,14 +16,12 @@ public class YahtzeeModel implements IYahtzeeModel {
     private boolean isDone;
 
     public YahtzeeModel() {
-        players = new ArrayList<>();
-        dice = new ArrayList<>();
         currentRound = 0;
     }
 
     @Override
-    public void addDie(IDie newDie) {
-        this.dice.add(newDie);
+    public void setDice(List<IDie> newDice) {
+        this.dice = newDice;
     }
     
     @Override
@@ -32,10 +30,12 @@ public class YahtzeeModel implements IYahtzeeModel {
     }
 
     @Override
-    public void addPlayer(IPlayer newPlayer) {
-        newPlayer.setPlayingOrder(this.players.size());
-        newPlayer.setGame(this);
-        this.players.add(newPlayer);
+    public void setPlayers(List<IPlayer> newPlayers) {
+        this.players = newPlayers;
+        for (int i = 0 ; i < newPlayers.size() ; i++) {
+            players.get(i).setPlayingOrder(i);
+            players.get(i).setGame(this);
+        }
     }
 
     @Override
