@@ -176,8 +176,8 @@ public class FixedDieIntegrationTest {
 
         // throw exception if playerTwo tries to end turn without recording a score
         playerTwo.rollDice();
-        assertThrows(IllegalArgumentException.class, () -> {
-            playerTwo.endTurn();
+        assertThrows(NullPointerException.class, () -> {
+            playerTwo.useScoringOptionAndEndTurn(null);
         });
     }
 

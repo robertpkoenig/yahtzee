@@ -110,7 +110,7 @@ public class YahtzeeModelUnitTests {
     for (int i = 0 ; i < Constants.numberOfRounds ; i++) {
       for (int j = 0 ; j < numPlayers ; j++) {
         Mockito.when(game.getActivePlayer().getScoreCard()
-          .getUsedScoringOptions().size()).thenReturn(i);
+          .getUsedScoringOptions().size()).thenReturn(i + 1);
         game.registerTurnFinished(game.getActivePlayer());
       }  
     }
@@ -155,7 +155,7 @@ public class YahtzeeModelUnitTests {
     for (int i = 0 ; i < Constants.numberOfRounds ; i++) {
       for (int j = 0 ; j < numPlayers ; j++) {
         Mockito.when(game.getActivePlayer().getScoreCard()
-          .getUsedScoringOptions().size()).thenReturn(i);
+          .getUsedScoringOptions().size()).thenReturn(i + 1);
         game.registerTurnFinished(game.getActivePlayer());
       }  
     }

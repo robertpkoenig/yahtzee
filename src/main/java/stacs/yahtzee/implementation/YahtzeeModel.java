@@ -25,6 +25,11 @@ public class YahtzeeModel implements IYahtzeeModel {
     public void addDie(IDie newDie) {
         this.dice.add(newDie);
     }
+    
+    @Override
+    public List<IDie> getDice() {
+        return this.dice;
+    }
 
     @Override
     public void addPlayer(IPlayer newPlayer) {
@@ -32,63 +37,30 @@ public class YahtzeeModel implements IYahtzeeModel {
         newPlayer.setGame(this);
         this.players.add(newPlayer);
     }
-    
+
+    @Override
+    public List<IPlayer> getPlayerList() {
+        return  this.players;
+    }
+
     @Override
     public void setActivePlayer(int newActivePlayerOrder) {
         this.activePlayer = players.get(newActivePlayerOrder);
     }
 
-    /** 
-     * @return Player
-     */
     @Override
     public IPlayer getActivePlayer() {
         return this.activePlayer;
     }
 
-    /** 
-     * @return int
-     */
     @Override
     public int getCurrentRound() {
         return this.currentRound;
     }
 
-    /** 
-     * @return Player
-     */
-    @Override
-    public List<IPlayer> getPlayersWithHighestScore() {
-        List<IPlayer> highestScoringPlayers = new ArrayList<>();
-        int highestScore = 0;
-        for (IPlayer player : players) {
-            if (player.getScoreCard().getTotalScore() > highestScore) {
-                highestScoringPlayers.clear();
-                highestScoringPlayers.add(player);
-                highestScore = player.getScoreCard().getTotalScore();
-            }
-            else if (highestScore > 0 &&
-                    player.getScoreCard().getTotalScore() == highestScore) {
-                highestScoringPlayers.add(player);
-            }
-        }
-        return highestScoringPlayers;
-    }
-
-    /** 
-     * @return int
-     */
     @Override
     public int getTotalRounds() {
         return Constants.numberOfRounds;
-    }
-
-    /** 
-     * @return boolean
-     */
-    @Override
-    public boolean isDone() {
-        return this.isDone;
     }
     
     /** 
@@ -115,15 +87,23 @@ public class YahtzeeModel implements IYahtzeeModel {
             (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
         setActivePlayer(newActivePlayerOrder);
     }
-    
-    @Override
-    public List<IDie> getDice() {
-        return this.dice;
-    }
 
     @Override
-    public List<IPlayer> getPlayerList() {
-        return  this.players;
+    public List<IPlayer> getPlayersWithHighestScore() {
+        List<IPlayer> highestScoringPlayers = new ArrayList<>();
+        int highestScore = 0;
+        for (IPlayer player : players) {
+            if (player.getScoreCard().getTotalScore() > highestScore) {
+                highestScoringPlayers.clear();
+                highestScoringPlayers.add(player);
+                highestScore = player.getScoreCard().getTotalScore();
+            }
+            else if (highestScore > 0 &&
+                    player.getScoreCard().getTotalScore() == highestScore) {
+                highestScoringPlayers.add(player);
+            }
+        }
+        return highestScoringPlayers;
     }
 
     @Override
@@ -132,4 +112,8 @@ public class YahtzeeModel implements IYahtzeeModel {
         else return getPlayersWithHighestScore();
     }
 
+    @Override
+    public boolean isDone() {
+        return this.isDone;
+    }
 }

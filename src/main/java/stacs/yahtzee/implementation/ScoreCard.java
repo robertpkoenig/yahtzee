@@ -28,18 +28,22 @@ public class ScoreCard implements IScoreCard {
     public ScoreCard(IPlayer player) {
         this.game = player.getGame();
     }
-
+    
     @Override
-    public int getTotalScore() {
-        return getUpperScoreWithoutBonus() + getBonus() + getLowerScore();
+    public List<IScoringOption> getUnusedScoringOptions() {
+        List<IScoringOption> unusedScoringOptions = new ArrayList<>();
+        for (IScoringOption scoringOption : getAllScoringOptions()) {
+            if (scoringOption.getScoreRecordedForThisOption() == -1)
+                unusedScoringOptions.add(scoringOption);
+        }
+        return unusedScoringOptions;
     }
 
     @Override
     public List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice() {
         List<IScoringOption> unusedScoringOptionsSatisfiedByCurrentDice = new ArrayList<>();
-        List<IScoringOption> searchList = getAllScoringOptions();
-        for (IScoringOption scoringOption : searchList) {
-            if (scoringOption.getScoreRecordedForThisOption() != -1) continue;
+        List<IScoringOption> unusedScoringOptions = getUnusedScoringOptions();
+        for (IScoringOption scoringOption : unusedScoringOptions) {
             if (scoringOption.calculateScoreForThisOption(game.getDice()) > 0) {
                 unusedScoringOptionsSatisfiedByCurrentDice.add(scoringOption);
             }
@@ -48,12 +52,14 @@ public class ScoreCard implements IScoreCard {
     }
 
     @Override
-    public List<IScoringOption> getAllUnusedScoringOptions() {
-        List<IScoringOption> unusedScoringOptions = getAllScoringOptions();
-        for (IScoringOption usedScoringOption : getUsedScoringOptions()) {
-            unusedScoringOptions.remove(usedScoringOption);
+    public List<IScoringOption> getUsedScoringOptions() {
+        List<IScoringOption> usedScoringOptions = new ArrayList<>();
+        List<IScoringOption> searchList = getAllScoringOptions();
+        for (IScoringOption scoringOption : searchList) {
+            if (scoringOption.getScoreRecordedForThisOption() != -1)
+                usedScoringOptions.add(scoringOption);
         }
-        return unusedScoringOptions;
+        return usedScoringOptions;
     }
 
     @Override
@@ -68,6 +74,11 @@ public class ScoreCard implements IScoreCard {
             }
         }
         return highestScoringOption;
+    }
+
+    @Override
+    public int getTotalScore() {
+        return getUpperScoreWithoutBonus() + getBonus() + getLowerScore();
     }
 
     @Override
@@ -118,16 +129,6 @@ public class ScoreCard implements IScoreCard {
         return lowerScoringOptions;
     }
 
-    @Override
-    public List<IScoringOption> getUsedScoringOptions() {
-        List<IScoringOption> usedScoringOptions = new ArrayList<>();
-        List<IScoringOption> searchList = getAllScoringOptions();
-        for (IScoringOption scoringOption : searchList) {
-            if (scoringOption.getScoreRecordedForThisOption() != -1)
-                usedScoringOptions.add(scoringOption);
-        }
-        return usedScoringOptions;
-    }
 
     private List<IScoringOption> getAllScoringOptions() {
         List<IScoringOption> allScoringOptions = new ArrayList<>();

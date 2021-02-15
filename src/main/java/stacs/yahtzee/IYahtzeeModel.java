@@ -10,6 +10,18 @@ import java.util.List;
  */
 public interface IYahtzeeModel {
 
+
+    /**
+     * Create new 'dice' objects and add the game's list of dice.
+     * The number of dice is specified in the constants file.
+     */
+    void addDie(IDie die);
+
+    /**
+     * Returns the dice that belong to the current game
+     */
+    List<IDie> getDice();    
+
     /**
      * Create new 'player' object for each player, and add to the game's
      * list of players.
@@ -24,15 +36,10 @@ public interface IYahtzeeModel {
     List<IPlayer> getPlayerList();
 
     /**
-     * Create new 'dice' objects and add the game's list of dice.
-     * The number of dice is specified in the constants file.
+     * Sets the active player for this game
+     * @param playerOrder The playing order of the player to be made the active player
      */
-    void addDie(IDie die);
-
-    /**
-     * Returns the dice that belong to the current game
-     */
-    List<IDie> getDice();
+    void setActivePlayer(int newActivePlayerOrder);
 
     /**
      * Returns the player who's turn it is.
@@ -57,12 +64,6 @@ public interface IYahtzeeModel {
     void registerTurnFinished(IPlayer playerFinishingTurn) throws IllegalArgumentException;
 
     /**
-     * Sets the active player for this game
-     * @param playerOrder The playing order of the player to be made the active player
-     */
-    void setActivePlayer(int newActivePlayerOrder);
-
-    /**
      * This method returns the player with highest score. When the game
      * is finished, the person with the highest score is the winner. If
      * no player yet has a score, it returns null.
@@ -70,17 +71,17 @@ public interface IYahtzeeModel {
     List<IPlayer> getPlayersWithHighestScore();
 
     /**
-     * Method to check if the game is finished. This always returns true
-     * after the last player's turn in the last round.
-     * @return True if the game is finished, otherwise false
-     */
-    boolean isDone();
-
-    /**
      * If the game is done, this method returns a list containing either the player
      * who won, or the players who tied for first place.
      * @return
      */
     List<IPlayer> getWinners();
+
+    /**
+     * Method to check if the game is finished. This always returns true
+     * after the last player's turn in the last round.
+     * @return True if the game is finished, otherwise false
+     */
+    boolean isDone();
 
 }

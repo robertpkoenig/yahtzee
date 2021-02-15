@@ -1,6 +1,7 @@
 package stacs.yahtzee;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 import java.util.Random;
@@ -65,16 +66,19 @@ public class RandomDieIntegrationTest {
             activePlayer.rollDice();
             randomDiceIndex = randomGenerator.nextInt(5);
             activePlayer.addKeptDie(game.getDice().get(randomDiceIndex));
-            // IScoringOption highestScoringOption = activePlayer.getScoreCard().getHighestScoringOption();
-            // get the list of possible scoring options and pick one at random
             List<IScoringOption> possibleScoringOptions =
-                activePlayer.getScoreCard().getAllUnusedScoringOptions();
+                activePlayer.getScoreCard().getUnusedScoringOptions();
             int randomScoringOptionIndex = randomGenerator.nextInt(possibleScoringOptions.size());
             IScoringOption selectedScoringOption = possibleScoringOptions.get(randomScoringOptionIndex);
             activePlayer.useScoringOptionAndEndTurn(selectedScoringOption);
         }
 
         assertTrue(game.getWinners().size() > 0);
+        assertTrue(game.getWinners().get(0).getScoreCard().getTotalScore() > 0);
+        assertTrue(playerOne.getScoreCard().getTotalScore() > 0);
+        assertTrue(playerTwo.getScoreCard().getTotalScore() > 0);
+        assertTrue(playerThree.getScoreCard().getTotalScore() > 0);
+        assertEquals(12, game.getCurrentRound());
     }
 
 }

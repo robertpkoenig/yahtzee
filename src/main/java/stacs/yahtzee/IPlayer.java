@@ -8,6 +8,16 @@ import java.util.List;
 public interface IPlayer {
 
     /**
+     * Sets this player's playing order in a game
+     */
+    void setPlayingOrder(int playingOrder);
+    
+    /**
+     * Returns the current player's playing order in the game
+     */
+    int getPlayingOrder();
+
+    /**
      * Sets the game this player is a part of.
      */
     void setGame(IYahtzeeModel game);
@@ -18,22 +28,16 @@ public interface IPlayer {
     IYahtzeeModel getGame();
 
     /**
-     * Sets this player's playing order in a game
+     * Sets this player's score card
      */
-    void setPlayingOrder(int playingOrder);
+    void setScoreCard(IScoreCard scoreCard);
 
     /**
-     * Returns the current player's playing order in the game
+     * Gets this player's scorecard object.
      */
-    int getPlayingOrder();
+    IScoreCard getScoreCard();
 
     /**
-     * Returns the number of rolls thise player has completed in the current
-     * round.
-     */
-    int getNumberOfRollsCompleted();
-
-     /**
      * This method calls the 'roll' method on a list of dice objects.
      * The list of dice objects is the game's dice objects, less the dice
      * the player may have elected to 'keep' after the previous role. If it is
@@ -65,14 +69,10 @@ public interface IPlayer {
     List<IDie> getActiveDice();
 
     /**
-     * Gets this player's scorecard object.
+     * Returns the number of rolls thise player has completed in the current
+     * round.
      */
-    IScoreCard getScoreCard();
-
-    /**
-     * Sets this player's score card
-     */
-    void setScoreCard(IScoreCard scoreCard);
+    int getNumberOfRollsCompleted();
 
     /**
      * Called by the player when they wish to mark their scorecard for a particular
@@ -85,10 +85,5 @@ public interface IPlayer {
      * attempted to use a scoring option they have already used.
      */
     void useScoringOptionAndEndTurn(IScoringOption scoringOption);
-
-    /**
-     * Resets the player state and tells the game to change the active player.
-     */
-    void endTurn();
 
 }

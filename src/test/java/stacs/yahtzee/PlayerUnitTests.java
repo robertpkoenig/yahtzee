@@ -82,7 +82,7 @@ public class PlayerUnitTests {
     void testEndTurnResetsState() {
         player.addKeptDie(game.getDice().get(2));
         player.rollDice(); 
-        player.endTurn();
+        player.useScoringOptionAndEndTurn(scoringOption);
         assertEquals(0, player.getKeptDice().size());
         assertEquals(0, player.getNumberOfRollsCompleted());
     }

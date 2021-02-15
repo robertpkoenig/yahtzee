@@ -8,6 +8,33 @@ import java.util.List;
 public interface IScoreCard {
 
     /**
+     * Returns a list of all scoring options the person has not used, even if
+     * they are not satisfied by current dice.
+     */
+    List<IScoringOption> getUnusedScoringOptions();
+
+    /**
+     * Gets the scoring options this player has not already registered a score for,
+     * and which are satisfied by their current dice roll.
+     * @return A list of scoring options that are fulfilled with the user's
+     * current dice and which they have not already used
+     */
+    List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
+
+    /**
+     * Returns all the scoring option this player has used. This is used to test that
+     * the player has registered a score for each round.
+     */
+    List<IScoringOption> getUsedScoringOptions();
+
+    /**
+     * Returns the available scoring option that has the highest score given
+     * the current dice values.
+     * @return The highest scoring option.
+     */
+    IScoringOption getHighestScoringOption();
+
+    /**
      * Returns the total score for each scoring option on this score card, 
      * including the optional bonus on the upper section.
      */
@@ -28,33 +55,6 @@ public interface IScoreCard {
      * Gets the score for the 'lower' scoring options. In our implementation 
      */
     int getLowerScore();
-
-    /**
-     * Gets the scoring options this player has not already registered a score for,
-     * and which are satisfied by their current dice roll.
-     * @return A list of scoring options that are fulfilled with the user's
-     * current dice and which they have not already used
-     */
-    List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
-
-    /**
-     * Returns a list of all scoring options the person has not used, even if
-     * they are not satisfied by current dice.
-     */
-    List<IScoringOption> getAllUnusedScoringOptions();
-
-    /**
-     * Returns all the scoring option this player has used. This is used to test that
-     * the player has registered a score for each round.
-     */
-    List<IScoringOption> getUsedScoringOptions();
-
-    /**
-     * Returns the available scoring option that has the highest score given
-     * the current dice values.
-     * @return The highest scoring option.
-     */
-    IScoringOption getHighestScoringOption();
 
     public IScoringOption getOnes();
 

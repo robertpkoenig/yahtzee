@@ -24,6 +24,11 @@ public class Player implements IPlayer {
     }
 
     @Override
+    public int getPlayingOrder() {
+        return this.playingOrder;
+    }
+
+    @Override
     public void setGame(IYahtzeeModel game) {
         if (game.getDice().size() != 5) throw new IllegalStateException();
         this.game = game;
@@ -35,8 +40,13 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public int getPlayingOrder() {
-        return this.playingOrder;
+    public void setScoreCard(IScoreCard scoreCard) {
+        this.scoreCard = scoreCard;
+    }
+
+    @Override
+    public IScoreCard getScoreCard() {
+        return this.scoreCard;
     }
 
     @Override
@@ -45,11 +55,6 @@ public class Player implements IPlayer {
         if (this.game.getActivePlayer() != this) throw new IllegalStateException();
         for (IDie die : getActiveDice()) die.roll();
         this.rollsCompleted++;
-    }
-
-    @Override
-    public List<IDie> getKeptDice() {
-        return this.keptDice;
     }
     
     @Override
@@ -64,6 +69,11 @@ public class Player implements IPlayer {
     }
 
     @Override
+    public List<IDie> getKeptDice() {
+        return this.keptDice;
+    }
+
+    @Override
     public List<IDie> getActiveDice() {
         List<IDie> activeDice = new ArrayList<>();
         for (IDie die : game.getDice()) {
@@ -73,8 +83,8 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public IScoreCard getScoreCard() {
-        return this.scoreCard;
+    public int getNumberOfRollsCompleted() {
+        return this.rollsCompleted;
     }
 
     @Override
@@ -83,25 +93,14 @@ public class Player implements IPlayer {
         endTurn();
     }
 
-    @Override
-    public void endTurn() {
-        this.resetPlayerState();
-        this.game.registerTurnFinished(this);
-    }
-
-    private void resetPlayerState() {
+    /**
+     * Tells the game to set the next player as the active player, and 
+     * resets the player's state.
+     */
+    private void endTurn() {
         this.keptDice.clear();
         this.rollsCompleted = 0;
-    }
-
-    @Override
-    public int getNumberOfRollsCompleted() {
-        return this.rollsCompleted;
-    }
-
-    @Override
-    public void setScoreCard(IScoreCard scoreCard) {
-        this.scoreCard = scoreCard;
+        this.game.registerTurnFinished(this);
     }
 
 }
