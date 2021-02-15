@@ -8,6 +8,21 @@ import java.util.List;
 public interface IPlayer {
 
     /**
+     * Sets the game this player is a part of.
+     */
+    void setGame(IYahtzeeModel game);
+
+    /**
+     * Returns the game this player is part of.
+     */
+    IYahtzeeModel getGame();
+
+    /**
+     * Sets this player's playing order in a game
+     */
+    void setPlayingOrder(int playingOrder);
+
+    /**
      * Returns the current player's playing order in the game
      */
     int getPlayingOrder();
@@ -27,12 +42,16 @@ public interface IPlayer {
     void rollDice();
 
     /**
-     * Sets the dice that this player has elected to 'keep'. The intended use is
-     * that the getter is called first to get this player's kept dice, then the caller
-     * removes or adds a new set of dice and sends that new list to this method.
-     * @param keptDie The list of dice the player has elected not to roll.
+     * Adds a die to the list of 'kept' die which the user will not roll.
+     * @param newKeptDice The die that the player will add to their 'kept' list.
      */
-    void setKeptDice(List<IDie> keptDice);
+    void addKeptDie(IDie newKeptDice);
+
+    /**
+     * Removes a die from the list of 'kept' die.
+     * @param dieToBeRemoved The die that will be removed 
+     */
+    void removeKeptDie(IDie dieToBeRemoved);
 
     /**
      * Returns the list of dice the player has elected to 'keep' and not roll
@@ -65,6 +84,11 @@ public interface IPlayer {
      * @return Returns true if the operation is succesful. Returns false if the player
      * attempted to use a scoring option they have already used.
      */
-    boolean useScoringOptionAndEndTurn(IScoringOption scoringOption, List<IDie> dice);
+    void useScoringOptionAndEndTurn(IScoringOption scoringOption);
+
+    /**
+     * Resets the player state and tells the game to change the active player.
+     */
+    void endTurn();
 
 }

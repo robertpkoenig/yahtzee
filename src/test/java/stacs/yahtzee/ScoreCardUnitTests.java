@@ -15,7 +15,6 @@ import org.mockito.*;
 public class ScoreCardUnitTests {
 
     ScoreCard scoreCard;
-    List<IDie> dice;
     IScoringOption ones;
     IScoringOption twos;
     IScoringOption threes;
@@ -32,12 +31,16 @@ public class ScoreCardUnitTests {
 
     @BeforeEach
     void setup() {
-        // create some mock scoring options
-        // these should each return some score
-        // then for each one I can perform the tests
-        scoreCard = new ScoreCard();
+        IPlayer player = Mockito.mock(IPlayer.class);
+        IYahtzeeModel game = Mockito.mock(IYahtzeeModel.class);
+        @SuppressWarnings("unchecked")
+        List<IDie> dice = Mockito.mock(List.class);
+        Mockito.when(dice.size()).thenReturn(5);
+        
+        Mockito.when(game.getDice()).thenReturn(dice);
+        Mockito.when(player.getGame()).thenReturn(game);
 
-        dice = new ArrayList<>();
+        scoreCard = new ScoreCard(player);
 
         ones = Mockito.mock(IScoringOption.class);
         Mockito.when(ones.getScoreRecordedForThisOption()).thenReturn(1);
@@ -105,12 +108,12 @@ public class ScoreCardUnitTests {
 
     @Test
     void testGetUnusedScoringOptionsSatisfiedByCurrentDice() {
-        assertEquals(3, scoreCard.getUnusedScoringOptionsSatisfiedByCurrentDice(dice).size());
+        assertEquals(3, scoreCard.getUnusedScoringOptionsSatisfiedByCurrentDice().size());
     }
 
     @Test
     void testGetHighestScoringOption() {
-        assertEquals(largeStraight, scoreCard.getHighestScoringOption(dice));
+        assertEquals(largeStraight, scoreCard.getHighestScoringOption());
     }
 
     @Test

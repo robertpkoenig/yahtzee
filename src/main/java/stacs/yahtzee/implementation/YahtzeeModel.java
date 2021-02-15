@@ -15,16 +15,22 @@ public class YahtzeeModel implements IYahtzeeModel {
     private List<IDie> dice;
     private boolean isDone;
 
-    public YahtzeeModel() {}
-
-    @Override
-    public void setDice(List<IDie> newDice) {
-        this.dice = newDice;
+    public YahtzeeModel() {
+        players = new ArrayList<>();
+        dice = new ArrayList<>();
+        currentRound = 0;
     }
 
     @Override
-    public void setPlayers(List<IPlayer> newPlayers) {
-        this.players = newPlayers;
+    public void addDie(IDie newDie) {
+        this.dice.add(newDie);
+    }
+
+    @Override
+    public void addPlayer(IPlayer newPlayer) {
+        newPlayer.setPlayingOrder(this.players.size());
+        newPlayer.setGame(this);
+        this.players.add(newPlayer);
     }
     
     @Override
@@ -77,7 +83,6 @@ public class YahtzeeModel implements IYahtzeeModel {
         return Constants.numberOfRounds;
     }
 
-    
     /** 
      * @return boolean
      */
@@ -90,9 +95,11 @@ public class YahtzeeModel implements IYahtzeeModel {
      * @param playerFinishingTurn
      */
     @Override
-    public void registerTurnFinished(IPlayer playerFinishingTurn) {
+    public void registerTurnFinished(IPlayer playerFinishingTurn) throws IllegalArgumentException{
         if (playerFinishingTurn != this.activePlayer) throw new IllegalArgumentException();
-
+        // prevent player from declaring turn over if they have not registered a score for this round
+        if (playerFinishingTurn.getScoreCard().getUsedScoringOptions().size() < currentRound + 1)
+            throw new IllegalArgumentException();
         // This logic ensures that the game never goes to '14' rounds, as this could mean
         // that a downstream GUI briefly shows 'round 14' before the game ends.
         if (playerFinishingTurn.getPlayingOrder() == this.players.size() - 1) {

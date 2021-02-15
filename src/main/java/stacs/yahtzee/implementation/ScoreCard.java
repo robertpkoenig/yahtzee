@@ -8,6 +8,8 @@ import java.util.List;
 
 public class ScoreCard implements IScoreCard {
 
+    private IYahtzeeModel game;
+
     private IScoringOption ones;
     private IScoringOption twos;
     private IScoringOption threes;
@@ -23,7 +25,9 @@ public class ScoreCard implements IScoreCard {
     private IScoringOption chance;
     private IScoringOption yahtzee;
 
-    public ScoreCard() {}
+    public ScoreCard(IPlayer player) {
+        this.game = player.getGame();
+    }
 
     @Override
     public int getTotalScore() {
@@ -31,27 +35,25 @@ public class ScoreCard implements IScoreCard {
     }
 
     @Override
-    public List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice(List<IDie> dice) {
-        List<IScoringOption> outputList = new ArrayList<>();
-        List<IScoringOption> searchList = new ArrayList<>();
-        searchList.addAll(getLowerScoringOptions());
-        searchList.addAll(getUpperScoringOptions());
+    public List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice() {
+        List<IScoringOption> unusedScoringOptionsSatisfiedByCurrentDice = new ArrayList<>();
+        List<IScoringOption> searchList = getAllScoringOptions();
         for (IScoringOption scoringOption : searchList) {
             if (scoringOption.getScoreRecordedForThisOption() != -1) continue;
-            if (scoringOption.calculateScoreForThisOption(dice) > 0) {
-                outputList.add(scoringOption);
+            if (scoringOption.calculateScoreForThisOption(game.getDice()) > 0) {
+                unusedScoringOptionsSatisfiedByCurrentDice.add(scoringOption);
             }
         }
-        return outputList;
+        return unusedScoringOptionsSatisfiedByCurrentDice;
     }
 
     @Override
-    public IScoringOption getHighestScoringOption(List<IDie> dice) {
+    public IScoringOption getHighestScoringOption() {
         IScoringOption highestScoringOption = null;
-        for (IScoringOption scoringOption : getUnusedScoringOptionsSatisfiedByCurrentDice(dice)) {
-            if (scoringOption.getScoreRecordedForThisOption() != -1) continue;
+        for (IScoringOption scoringOption : getUnusedScoringOptionsSatisfiedByCurrentDice()) {
             if (highestScoringOption == null ||
-                scoringOption.getScoreRecordedForThisOption() > highestScoringOption.getScoreRecordedForThisOption())
+                    scoringOption.calculateScoreForThisOption(game.getDice()) >
+                    highestScoringOption.calculateScoreForThisOption(game.getDice()))
                 {
                 highestScoringOption = scoringOption;
             }
@@ -107,106 +109,150 @@ public class ScoreCard implements IScoreCard {
         return lowerScoringOptions;
     }
 
+    @Override
+    public List<IScoringOption> getUsedScoringOptions() {
+        List<IScoringOption> usedScoringOptions = new ArrayList<>();
+        List<IScoringOption> searchList = getAllScoringOptions();
+        for (IScoringOption scoringOption : searchList) {
+            if (scoringOption.getScoreRecordedForThisOption() != -1)
+                usedScoringOptions.add(scoringOption);
+        }
+        return usedScoringOptions;
+    }
+
+    private List<IScoringOption> getAllScoringOptions() {
+        List<IScoringOption> allScoringOptions = new ArrayList<>();
+        allScoringOptions.addAll(getUpperScoringOptions());
+        allScoringOptions.addAll(getLowerScoringOptions());
+        return allScoringOptions;
+    }
+
+    @Override
     public IScoringOption getOnes() {
         return ones;
     }
 
+    @Override
     public void setOnes(IScoringOption ones) {
         this.ones = ones;
     }
 
+    @Override
     public IScoringOption getTwos() {
         return twos;
     }
 
+    @Override
     public void setTwos(IScoringOption twos) {
         this.twos = twos;
     }
 
+    @Override
     public IScoringOption getThrees() {
         return threes;
     }
 
+    @Override
     public void setThrees(IScoringOption threes) {
         this.threes = threes;
     }
 
+    @Override
     public IScoringOption getFours() {
         return fours;
     }
 
+    @Override
     public void setFours(IScoringOption fours) {
         this.fours = fours;
     }
 
+    @Override
     public IScoringOption getFives() {
         return fives;
     }
 
+    @Override
     public void setFives(IScoringOption fives) {
         this.fives = fives;
     }
 
+    @Override
     public IScoringOption getSixes() {
         return sixes;
     }
 
+    @Override
     public void setSixes(IScoringOption sixes) {
         this.sixes = sixes;
     }
 
+    @Override
     public IScoringOption getThreeOfKind() {
         return threeOfKind;
     }
 
+    @Override
     public void setThreeOfKind(IScoringOption threeOfKind) {
         this.threeOfKind = threeOfKind;
     }
 
+    @Override
     public IScoringOption getFourOfKind() {
         return fourOfKind;
     }
 
+    @Override
     public void setFourOfKind(IScoringOption fourOfKind) {
         this.fourOfKind = fourOfKind;
     }
 
+    @Override
     public IScoringOption getFullHouse() {
         return fullHouse;
     }
 
+    @Override
     public void setFullHouse(IScoringOption fullHouse) {
         this.fullHouse = fullHouse;
     }
 
+    @Override
     public IScoringOption getSmallStraight() {
         return smallStraight;
     }
 
+    @Override
     public void setSmallStraight(IScoringOption smallStraight) {
         this.smallStraight = smallStraight;
     }
 
+    @Override
     public IScoringOption getLargeStraight() {
         return largeStraight;
     }
 
+    @Override
     public void setLargeStraight(IScoringOption largeStraight) {
         this.largeStraight = largeStraight;
     }
 
+    @Override
     public IScoringOption getChance() {
         return chance;
     }
 
+    @Override
     public void setChance(IScoringOption chance) {
         this.chance = chance;
     }
 
+    @Override
     public IScoringOption getYahtzee() {
         return yahtzee;
     }
 
+    @Override
     public void setYahtzee(IScoringOption yahtzee) {
         this.yahtzee = yahtzee;
     }

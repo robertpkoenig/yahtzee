@@ -3,6 +3,7 @@ package stacs.yahtzee.implementation.scoringoptions;
 import java.util.List;
 
 import stacs.yahtzee.IDie;
+import stacs.yahtzee.implementation.Constants;
 
 public class ThreeOfKindScoringOption extends AScoringOption {
 
@@ -12,7 +13,7 @@ public class ThreeOfKindScoringOption extends AScoringOption {
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {
-        int[] counts = new int[dice.size()];
+        int[] counts = new int[Constants.numberOfDiceFaces];
         int sum = 0;
         boolean threeOfKindFound = false;
 

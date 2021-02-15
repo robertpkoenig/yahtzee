@@ -35,8 +35,10 @@ public class PlayerUnitTests {
         dice.add(Mockito.mock(IDie.class));
         dice.add(Mockito.mock(IDie.class));
         Mockito.when(game.getDice()).thenReturn(dice);
-        this.player = new Player(playerNumber, game);
-        this.player.setKeptDice(new ArrayList<>());
+        this.player = new Player();
+        Mockito.when(game.getActivePlayer()).thenReturn(player);
+        this.player.setGame(game);
+        this.player.setPlayingOrder(3);
         scoreCard = Mockito.mock(IScoreCard.class);
         this.player.setScoreCard(scoreCard);
         this.scoringOption = Mockito.mock(IScoringOption.class);
@@ -49,28 +51,28 @@ public class PlayerUnitTests {
 
     @Test
     void testKeepOneDie() {
-        player.getKeptDice().add(game.getDice().get(2));
+        player.addKeptDie(game.getDice().get(2));
         assertEquals(game.getDice().get(2), player.getKeptDice().get(0));
     }
 
     @Test
     void testKeepTwoDice() {
-        player.getKeptDice().add(game.getDice().get(2));
-        player.getKeptDice().add(game.getDice().get(3));
+        player.addKeptDie(game.getDice().get(2));
+        player.addKeptDie(game.getDice().get(3));
         assertEquals(2, player.getKeptDice().size());
     }
 
     @Test
     void testActiveDiceAfterKeepingTwoDice() {
-        player.getKeptDice().add(game.getDice().get(2));
-        player.getKeptDice().add(game.getDice().get(3));
+        player.addKeptDie(game.getDice().get(2));
+        player.addKeptDie(game.getDice().get(3));
         assertEquals(3, player.getActiveDice().size());
     }
     
     @Test
     void testKeepAndUnKeepTwoDice() {
-        player.getKeptDice().add(game.getDice().get(2));
-        player.getKeptDice().add(game.getDice().get(3));
+        player.addKeptDie(game.getDice().get(2));
+        player.addKeptDie(game.getDice().get(3));
         player.getKeptDice().remove(1);
         player.getKeptDice().remove(0);
         assertEquals(0, player.getKeptDice().size());
@@ -78,9 +80,9 @@ public class PlayerUnitTests {
 
     @Test
     void testEndTurnResetsState() {
-        player.getKeptDice().add(game.getDice().get(2));
+        player.addKeptDie(game.getDice().get(2));
         player.rollDice(); 
-        player.useScoringOptionAndEndTurn(scoringOption, null);
+        player.endTurn();
         assertEquals(0, player.getKeptDice().size());
         assertEquals(0, player.getNumberOfRollsCompleted());
     }

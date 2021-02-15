@@ -7,27 +7,42 @@ import java.util.List;
 
 public class Player implements IPlayer {
 
-    int playerOrder;
+    int playingOrder;
     int score;
     IYahtzeeModel game;
     int rollsCompleted;
     List<IDie> keptDice;
     IScoreCard scoreCard;
 
-    public Player(int playerOrder, IYahtzeeModel game) {
-        this.playerOrder = playerOrder;
+    public Player() {
+        this.keptDice = new ArrayList<>();
+    }
+
+    @Override
+    public void setPlayingOrder(int playingOrder) {
+        this.playingOrder = playingOrder;
+    }
+
+    @Override
+    public void setGame(IYahtzeeModel game) {
+        if (game.getDice().size() != 5) throw new IllegalStateException();
         this.game = game;
-        this.score = 0;
+    }
+
+    @Override
+    public IYahtzeeModel getGame() {
+        return this.game;
     }
 
     @Override
     public int getPlayingOrder() {
-        return this.playerOrder;
+        return this.playingOrder;
     }
 
     @Override
     public void rollDice() throws IllegalStateException{
         if (this.rollsCompleted >= 3) throw new IllegalStateException();
+        if (this.game.getActivePlayer() != this) throw new IllegalStateException();
         for (IDie die : getActiveDice()) die.roll();
         this.rollsCompleted++;
     }
@@ -38,14 +53,20 @@ public class Player implements IPlayer {
     }
     
     @Override
-    public void setKeptDice(List<IDie> keptDice) {
-        this.keptDice = keptDice;
+    public void addKeptDie(IDie newKeptDie) {
+        this.keptDice.add(newKeptDie);
+    }
+
+    @Override
+    public void removeKeptDie(IDie dieToBeRemoved) {
+        this.keptDice.remove(dieToBeRemoved);
+        
     }
 
     @Override
     public List<IDie> getActiveDice() {
         List<IDie> activeDice = new ArrayList<>();
-        for (IDie die : this.game.getDice()) {
+        for (IDie die : game.getDice()) {
             if (!this.keptDice.contains(die)) activeDice.add(die);
         }
         return activeDice;
@@ -57,20 +78,20 @@ public class Player implements IPlayer {
     }
 
     @Override
-    public boolean useScoringOptionAndEndTurn(IScoringOption scoringOption, List<IDie> dice) {
-        scoringOption.recordScoreForThisOption(dice);
+    public void useScoringOptionAndEndTurn(IScoringOption scoringOption) {
+        scoringOption.recordScoreForThisOption(game.getDice());
+        endTurn();
+    }
+
+    @Override
+    public void endTurn() {
         this.resetPlayerState();
-        this.endTurn();
-        return false;
+        this.game.registerTurnFinished(this);
     }
 
     private void resetPlayerState() {
         this.keptDice.clear();
         this.rollsCompleted = 0;
-    }
-
-    private void endTurn() {
-        this.game.registerTurnFinished(this);
     }
 
     @Override

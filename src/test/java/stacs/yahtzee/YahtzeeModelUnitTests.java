@@ -18,7 +18,7 @@ import stacs.yahtzee.implementation.*;
  */
 public class YahtzeeModelUnitTests {
   
-  YahtzeeModel model;
+  YahtzeeModel game;
   int numPlayers;
   List<IPlayer> players;
   List<IDie> dice;
@@ -26,41 +26,46 @@ public class YahtzeeModelUnitTests {
   @BeforeEach
   void setup() {
     // create a new game with mock Player and Dice objects
+    game = new YahtzeeModel();
     numPlayers = 6;
 
     players = new ArrayList<>();
     for (int i = 0 ; i < numPlayers ; i++) {
       IPlayer newPlayer = Mockito.mock(IPlayer.class);
-      // return i as the player order and the player score
       Mockito.when(newPlayer.getPlayingOrder()).thenReturn(i);
+      IScoreCard scoreCard = Mockito.mock(IScoreCard.class);
+      Mockito.when(newPlayer.getScoreCard()).thenReturn(scoreCard);
+      @SuppressWarnings( "unchecked" )
+      List<IScoringOption> usedScoringOptions = Mockito.mock(List.class);
+      Mockito.when(usedScoringOptions.size()).thenReturn(1);
+      Mockito.when(scoreCard.getUsedScoringOptions()).thenReturn(usedScoringOptions);
       players.add(newPlayer);
+      game.addPlayer(newPlayer);
     }
 
     dice = new ArrayList<>();
     for (int i = 0 ; i < Constants.numberOfDice ; i++) {
       IDie newDie = Mockito.mock(IDie.class);
       dice.add(newDie);
+      game.addDie(newDie);
     }
 
-    model = new YahtzeeModel();
-    model.setPlayers(players);
-    model.setDice(dice);
-    model.setActivePlayer(0);
+    game.setActivePlayer(0);
   }
 
   @Test
   void testPlayerQuantity() {
-    assertEquals(numPlayers, model.getPlayerList().size());
+    assertEquals(numPlayers, game.getPlayerList().size());
   }
 
   @Test
   void testDiceQuantity() {
-    assertEquals(Constants.numberOfDice, model.getDice().size());
+    assertEquals(Constants.numberOfDice, game.getDice().size());
   }
 
   @Test
   void testInitialActivePlayerHasPlayingOrderZero() {
-    assertEquals(0, model.getActivePlayer().getPlayingOrder());
+    assertEquals(0, game.getActivePlayer().getPlayingOrder());
   } 
 
   @Test
@@ -70,15 +75,15 @@ public class YahtzeeModelUnitTests {
       Mockito.when(scoreCard.getTotalScore()).thenReturn(0);
       Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
     }
-    assertEquals(0, model.getPlayersWithHighestScore().size());
+    assertEquals(0, game.getPlayersWithHighestScore().size());
   }
 
   @Test
   void testActivePlayerSwitching() {
     // if the activeplayer registers their turn finished, this should result in the 
     // second player being the active player
-    model.registerTurnFinished(model.getActivePlayer());
-    assertEquals(model.getPlayerList().get(1), model.getActivePlayer());
+    game.registerTurnFinished(game.getActivePlayer());
+    assertEquals(game.getPlayerList().get(1), game.getActivePlayer());
   }
 
   @Test
@@ -86,38 +91,40 @@ public class YahtzeeModelUnitTests {
     // if all players register their turn finished, this should result in the 
     // first player being the active player again
     for (int i = 0 ; i < numPlayers ; i++) {
-      model.registerTurnFinished(model.getActivePlayer());
+      game.registerTurnFinished(game.getActivePlayer());
     }
-    assertEquals(model.getPlayerList().get(0), model.getActivePlayer());
+    assertEquals(game.getPlayerList().get(0), game.getActivePlayer());
   }
 
   @Test
   void testRoundIncrement() {
     // when all players take their turn, the round is incremented by 1
     for (int i = 0 ; i < numPlayers ; i++) {
-      model.registerTurnFinished(model.getActivePlayer());
+      game.registerTurnFinished(game.getActivePlayer());
     }
-    assertEquals(1, model.getCurrentRound());
+    assertEquals(1, game.getCurrentRound());
   }
 
   @Test
   void testGameEndsAfterAllPlayersAndAllRounds() {
     for (int i = 0 ; i < Constants.numberOfRounds ; i++) {
       for (int j = 0 ; j < numPlayers ; j++) {
-        model.registerTurnFinished(model.getActivePlayer());
+        Mockito.when(game.getActivePlayer().getScoreCard()
+          .getUsedScoringOptions().size()).thenReturn(i);
+        game.registerTurnFinished(game.getActivePlayer());
       }  
     }
-    assertEquals(true, model.isDone());
+    assertEquals(true, game.isDone());
   }
 
   @Test
   void testPlayerListIsReturned() {
-    assertEquals(players, model.getPlayerList());
+    assertEquals(players, game.getPlayerList());
   }
 
   @Test
   void testDiceListIsReturned() {
-    assertEquals(dice, model.getDice());
+    assertEquals(dice, game.getDice());
   }
 
   @Test
@@ -129,7 +136,7 @@ public class YahtzeeModelUnitTests {
       Mockito.when(scoreCard.getTotalScore()).thenReturn(i);
       Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
     }
-    assertEquals(players.get(numPlayers - 1), model.getPlayersWithHighestScore().get(0));
+    assertEquals(players.get(numPlayers - 1), game.getPlayersWithHighestScore().get(0));
   }
 
   @Test
@@ -139,7 +146,7 @@ public class YahtzeeModelUnitTests {
       Mockito.when(scoreCard.getTotalScore()).thenReturn(10);
       Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
     }
-    assertEquals(6, model.getPlayersWithHighestScore().size());
+    assertEquals(6, game.getPlayersWithHighestScore().size());
   }
 
   @Test
@@ -147,7 +154,9 @@ public class YahtzeeModelUnitTests {
     // play the game through
     for (int i = 0 ; i < Constants.numberOfRounds ; i++) {
       for (int j = 0 ; j < numPlayers ; j++) {
-        model.registerTurnFinished(model.getActivePlayer());
+        Mockito.when(game.getActivePlayer().getScoreCard()
+          .getUsedScoringOptions().size()).thenReturn(i);
+        game.registerTurnFinished(game.getActivePlayer());
       }  
     }
     for (int i = 0 ; i < players.size() ; i++) {
@@ -155,7 +164,7 @@ public class YahtzeeModelUnitTests {
       Mockito.when(scoreCard.getTotalScore()).thenReturn(i);
       Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
     }
-    assertEquals(players.get(numPlayers - 1), model.getWinners().get(0));
+    assertEquals(players.get(numPlayers - 1), game.getWinners().get(0));
   }
 
   @Test
@@ -166,7 +175,7 @@ public class YahtzeeModelUnitTests {
       Mockito.when(players.get(i).getScoreCard()).thenReturn(scoreCard);
     }
     assertThrows(IllegalStateException.class, () -> {
-      model.getWinners();
+      game.getWinners();
     });
   } 
 }

@@ -96,7 +96,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(6, fourOfKind.calculateScoreForThisOption(dice));
     }
 
@@ -118,7 +117,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(0, fourOfKind.calculateScoreForThisOption(dice));
     }
 
@@ -140,7 +138,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(25, fullHouse.calculateScoreForThisOption(dice));
     }
 
@@ -162,7 +159,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(0, fullHouse.calculateScoreForThisOption(dice));
     }
 
@@ -184,7 +180,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(5);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(30, smallStraight.calculateScoreForThisOption(dice));
     }
 
@@ -206,7 +201,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(0, smallStraight.calculateScoreForThisOption(dice));
     }
 
@@ -228,7 +222,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(5);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(40, largeStraight.calculateScoreForThisOption(dice));
     }
 
@@ -250,7 +243,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(6);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(40, largeStraight.calculateScoreForThisOption(dice));
     }
 
@@ -272,7 +264,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(5);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(0, largeStraight.calculateScoreForThisOption(dice));
     }
 
@@ -294,7 +285,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(14, chance.calculateScoreForThisOption(dice));
     }
 
@@ -316,7 +306,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(50, yahtzee.calculateScoreForThisOption(dice));
     }
 
@@ -338,7 +327,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(6);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(50, yahtzee.calculateScoreForThisOption(dice));
     }
 
@@ -360,7 +348,6 @@ public class LowerScoreOptionUnitTests {
         IDie newDie5 = Mockito.mock(IDie.class);
         Mockito.when(newDie5.getCurrentFace()).thenReturn(2);
         dice.add(newDie5);
-        // returned value should be sum of all dice faces
         assertEquals(0, yahtzee.calculateScoreForThisOption(dice));
     }
 }
