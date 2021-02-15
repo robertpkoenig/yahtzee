@@ -15,7 +15,7 @@ public interface IYahtzeeModel {
      * Create new 'dice' objects and add the game's list of dice.
      * The number of dice is specified in the constants file.
      */
-    void setDice(List<IDie> newDice);
+    void setDice(List<IDie> dice);
 
     /**
      * Returns the dice that belong to the current game
@@ -28,7 +28,7 @@ public interface IYahtzeeModel {
      * @param numPlayers The number of players specified as a parameter
      * in the constructor in the game object
      */
-    void setPlayers(List<IPlayer> newPlayers);
+    void setPlayers(List<IPlayer> players);
 
     /**
      * Returns this game's list of players
@@ -39,7 +39,7 @@ public interface IYahtzeeModel {
      * Sets the active player for this game
      * @param playerOrder The playing order of the player to be made the active player
      */
-    void setActivePlayer(int newActivePlayerOrder);
+    void setActivePlayer(IPlayer newActivePlayerOrder);
 
     /**
      * Returns the player who's turn it is.

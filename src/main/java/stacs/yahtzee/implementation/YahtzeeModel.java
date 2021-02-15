@@ -20,8 +20,8 @@ public class YahtzeeModel implements IYahtzeeModel {
     }
 
     @Override
-    public void setDice(List<IDie> newDice) {
-        this.dice = newDice;
+    public void setDice(List<IDie> dice) {
+        this.dice = dice;
     }
     
     @Override
@@ -30,9 +30,9 @@ public class YahtzeeModel implements IYahtzeeModel {
     }
 
     @Override
-    public void setPlayers(List<IPlayer> newPlayers) {
-        this.players = newPlayers;
-        for (int i = 0 ; i < newPlayers.size() ; i++) {
+    public void setPlayers(List<IPlayer> players) {
+        this.players = players;
+        for (int i = 0 ; i < players.size() ; i++) {
             players.get(i).setPlayingOrder(i);
             players.get(i).setGame(this);
         }
@@ -44,8 +44,8 @@ public class YahtzeeModel implements IYahtzeeModel {
     }
 
     @Override
-    public void setActivePlayer(int newActivePlayerOrder) {
-        this.activePlayer = players.get(newActivePlayerOrder);
+    public void setActivePlayer(IPlayer newActivePlayerOrder) {
+        this.activePlayer = newActivePlayerOrder;
     }
 
     @Override
@@ -85,7 +85,7 @@ public class YahtzeeModel implements IYahtzeeModel {
 
         int newActivePlayerOrder = 
             (playerFinishingTurn.getPlayingOrder() + 1) % this.players.size();
-        setActivePlayer(newActivePlayerOrder);
+        setActivePlayer(this.players.get(newActivePlayerOrder));
     }
 
     @Override

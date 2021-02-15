@@ -51,7 +51,7 @@ public class YahtzeeModelUnitTests {
     }
     game.setDice(dice);
 
-    game.setActivePlayer(0);
+    game.setActivePlayer(game.getPlayerList().get(0));
   }
 
   @Test

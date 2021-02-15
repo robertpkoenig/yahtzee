@@ -38,7 +38,7 @@ public class RandomDieIntegrationTest {
         players.add(playerTwo = new Player());
         players.add(playerThree = new Player());
         game.setPlayers(players);
-        game.setActivePlayer(0);
+        game.setActivePlayer(game.getPlayerList().get(0));
 
         randomGenerator = new Random();
 
