@@ -5,39 +5,34 @@ import java.util.List;
 /**
  * This interface defines the model for a game of Yahtzee. It relies on numerous
  * other classes, such as 'Player' and 'Dice'. The rules of Yahtzee as it
- * implemented here, with some exceptions, can be found at:
- * https://en.wikipedia.org/wiki/Yahtzee
+ * is implemented here can be found at: https://en.wikipedia.org/wiki/Yahtzee
+ * One exception to the rules in this implementation is that there is no bonus
+ * for rolling multiple 'yahtzee's.
  */
 public interface IYahtzeeModel {
 
-
     /**
-     * Create new 'dice' objects and add the game's list of dice.
-     * The number of dice is specified in the constants file.
+     * Sets this game's dice.
      */
     void setDice(List<IDie> dice);
 
     /**
-     * Returns the dice that belong to the current game
+     * Returns the dice that belong to the current game.
      */
     List<IDie> getDice();    
 
     /**
-     * Create new 'player' object for each player, and add to the game's
-     * list of players.
-     * @param numPlayers The number of players specified as a parameter
-     * in the constructor in the game object
+     * Sets this game's list of players.
      */
     void setPlayers(List<IPlayer> players);
 
     /**
-     * Returns this game's list of players
+     * Returns this game's list of players.
      */
     List<IPlayer> getPlayerList();
 
     /**
-     * Sets the active player for this game
-     * @param playerOrder The playing order of the player to be made the active player
+     * Sets the active player for this game.
      */
     void setActivePlayer(IPlayer newActivePlayerOrder);
 
@@ -61,19 +56,20 @@ public interface IYahtzeeModel {
      * This allows the model to assign the next player as the active player,
      * and if necessary it increments the round or finishes the game.
      */
-    void registerTurnFinished(IPlayer playerFinishingTurn) throws IllegalArgumentException;
+    void registerTurnFinished(IPlayer playerFinishingTurn);
 
     /**
-     * This method returns the player with highest score. When the game
-     * is finished, the person with the highest score is the winner. If
-     * no player yet has a score, it returns null.
+     * Returns a list containing one player with the highest score, or multiple
+     * players who are tied for the lead.
+     * @return A list of one or more players with the highest score
      */
     List<IPlayer> getPlayersWithHighestScore();
 
     /**
      * If the game is done, this method returns a list containing either the player
      * who won, or the players who tied for first place.
-     * @return
+     * @return A list of one or more players with the highest score at the end of
+     * the game
      */
     List<IPlayer> getWinners();
 

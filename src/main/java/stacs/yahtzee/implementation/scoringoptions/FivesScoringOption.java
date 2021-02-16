@@ -4,6 +4,10 @@ import java.util.List;
 
 import stacs.yahtzee.IDie;
 
+/**
+ * Model for the 'Fives' scoring option. This is calculated as:
+ * the number of dice with value 5 multiplied by 5
+ */
 public class FivesScoringOption extends AScoringOption {
 
     static final String name = "Fives";

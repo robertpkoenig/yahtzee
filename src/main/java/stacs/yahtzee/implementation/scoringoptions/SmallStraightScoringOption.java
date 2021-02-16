@@ -5,6 +5,10 @@ import java.util.List;
 import stacs.yahtzee.implementation.Constants;
 import stacs.yahtzee.IDie;
 
+/**
+ * Model for the 'Small Striaight' scoring option. When the player has
+ * four sequential dice, the score for this option is 30.
+ */
 public class SmallStraightScoringOption extends AScoringOption {
 
     static final String name = "Small Straight";

@@ -5,11 +5,15 @@ import java.util.List;
 import stacs.yahtzee.IDie;
 import stacs.yahtzee.implementation.Constants;
 
+/**
+ * Model for the 'Four of a kind' scoring option. If four dice have the 
+ * same face value, the score for this option is sum of all faces
+ */
 public class FourOfKindScoringOption extends AScoringOption {
 
-    static final String name = "Twos";
+    static final String name = "Four of a kind";
     static final String description = 
-        "Number of dice with value 2 multiplied by 2";
+        "If four dice have the same face value, score is sum of all faces";
 
     @Override
     public int calculateScoreForThisOption(List<IDie> dice) {

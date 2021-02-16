@@ -4,6 +4,10 @@ import java.util.List;
 
 import stacs.yahtzee.IDie;
 
+/**
+ * Model for the 'Yahtzee' scoring option. When all dice have the 
+ * same face value, the score for this option is 50.
+ */
 public class YahtzeeScoringOption extends AScoringOption {
 
     static final String name = "Yahtzee";

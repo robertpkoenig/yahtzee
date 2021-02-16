@@ -5,6 +5,10 @@ import java.util.List;
 import stacs.yahtzee.IDie;
 import stacs.yahtzee.implementation.Constants;
 
+/**
+ * Model for the 'Three of a kind' scoring option. When three dice have the
+ * same face, score for this option is sum of all dice face values.
+ */
 public class ThreeOfKindScoringOption extends AScoringOption {
 
     static final String name = "Three of a kind";

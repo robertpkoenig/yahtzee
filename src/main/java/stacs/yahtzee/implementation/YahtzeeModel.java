@@ -21,6 +21,7 @@ public class YahtzeeModel implements IYahtzeeModel {
 
     @Override
     public void setDice(List<IDie> dice) {
+        if (dice.size() != Constants.numberOfDice) throw new IllegalArgumentException();
         this.dice = dice;
     }
     
@@ -31,6 +32,7 @@ public class YahtzeeModel implements IYahtzeeModel {
 
     @Override
     public void setPlayers(List<IPlayer> players) {
+        if (players.size() < 2) throw new IllegalArgumentException();
         this.players = players;
         for (int i = 0 ; i < players.size() ; i++) {
             players.get(i).setPlayingOrder(i);
@@ -63,11 +65,8 @@ public class YahtzeeModel implements IYahtzeeModel {
         return Constants.numberOfRounds;
     }
     
-    /** 
-     * @param playerFinishingTurn
-     */
     @Override
-    public void registerTurnFinished(IPlayer playerFinishingTurn) throws IllegalArgumentException{
+    public void registerTurnFinished(IPlayer playerFinishingTurn) {
         if (playerFinishingTurn != this.activePlayer) throw new IllegalArgumentException();
         // prevent player from declaring turn over if they have not registered a score for this round
         if (playerFinishingTurn.getScoreCard().getUsedScoringOptions().size() < currentRound + 1)

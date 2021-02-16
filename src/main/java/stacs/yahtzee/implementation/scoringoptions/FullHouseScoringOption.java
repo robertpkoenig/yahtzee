@@ -5,6 +5,10 @@ import java.util.List;
 import stacs.yahtzee.IDie;
 import stacs.yahtzee.implementation.Constants;
 
+/**
+ * Model for the 'Full House' scoring option. When three dice with one number,
+ * and two of another, the score for this option is 25.
+ */
 public class FullHouseScoringOption extends AScoringOption {
 
     static final String name = "Full House";

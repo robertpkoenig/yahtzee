@@ -5,6 +5,9 @@ import java.util.List;
 import stacs.yahtzee.IDie;
 import stacs.yahtzee.IScoringOption;
 
+/**
+ * Defines common behaviour of all classes implementing the IScoringOption interface
+ */
 public abstract class AScoringOption implements IScoringOption {
 
     int scoreRecorded;

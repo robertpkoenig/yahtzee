@@ -5,6 +5,10 @@ import java.util.List;
 import stacs.yahtzee.implementation.Constants;
 import stacs.yahtzee.IDie;
 
+/**
+ * Model for the 'Large Straight' scoring option. When four dice have
+ * sequential value, the score for this option is 40.
+ */
 public class LargeStraightScoringOption extends AScoringOption {
 
     static final String name = "Large Straight";

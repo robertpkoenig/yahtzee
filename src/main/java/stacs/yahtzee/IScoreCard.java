@@ -14,15 +14,14 @@ public interface IScoreCard {
     List<IScoringOption> getUnusedScoringOptions();
 
     /**
-     * Gets the scoring options this player has not already registered a score for,
-     * and which are satisfied by their current dice roll.
-     * @return A list of scoring options that are fulfilled with the user's
-     * current dice and which they have not already used
+     * @return A list of scoring options that are satisfied by the
+     * current dice and which have not already used
      */
     List<IScoringOption> getUnusedScoringOptionsSatisfiedByCurrentDice();
 
     /**
-     * Returns all the scoring option this player has used. This is used to test that
+     * Returns all the scoring options on this score card for which
+     * a score has been recorded. This is used to test that
      * the player has registered a score for each round.
      */
     List<IScoringOption> getUsedScoringOptions();
@@ -30,29 +29,30 @@ public interface IScoreCard {
     /**
      * Returns the available scoring option that has the highest score given
      * the current dice values.
-     * @return The highest scoring option.
      */
     IScoringOption getHighestScoringOption();
 
     /**
-     * Returns the total score for each scoring option on this score card, 
+     * Returns the total score for each used scoring option on this score card, 
      * including the optional bonus on the upper section.
      */
     int getTotalScore();
 
     /**
-     * This includes a bonus score if the sum of all upper scoring options is greater than 63.
+     * Returns the upper score without the bonus that applies when the upper
+     * score is above 63.
      */
     int getUpperScoreWithoutBonus();
 
     /**
      * Returns the value of the bonus applied to the upper score if upper score
      * is above 63. The bonus is 35.
+     * @return 35 if the upper score is 63 or greater, and zero otherwise
      */
     int getBonus();
 
     /**
-     * Gets the score for the 'lower' scoring options. In our implementation 
+     * Gets the score for the 'lower' scoring options.
      */
     int getLowerScore();
 

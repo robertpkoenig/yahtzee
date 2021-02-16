@@ -40,7 +40,7 @@ public interface IPlayer {
     /**
      * This method calls the 'roll' method on a list of dice objects.
      * The list of dice objects is the game's dice objects, less the dice
-     * the player may have elected to 'keep' after the previous role. If it is
+     * the player has elected to 'keep' after the previous role. If it is
      * their first roll of the round, they must roll all the dice.
      */
     void rollDice();
@@ -64,12 +64,11 @@ public interface IPlayer {
 
     /**
      * Returns the game's dice, excluding those the user has elected to keep.
-     * @return
      */
     List<IDie> getActiveDice();
 
     /**
-     * Returns the number of rolls thise player has completed in the current
+     * Returns the number of rolls this player has completed in the current
      * round.
      */
     int getNumberOfRollsCompleted();
@@ -79,10 +78,7 @@ public interface IPlayer {
      * scoring option. This must be called exactly once during each of this player's
      * turn, and when it is called, it ends their turn.
      * @param scoringOption The scoring option which this person will take. The score
-     * will be calculated automatically and registered in the scorecard card object 
-     * by the "player score option" object.
-     * @return Returns true if the operation is succesful. Returns false if the player
-     * attempted to use a scoring option they have already used.
+     * will be calculated automatically and registered accordingly
      */
     void useScoringOptionAndEndTurn(IScoringOption scoringOption);
 
