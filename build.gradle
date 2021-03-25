@@ -18,8 +18,9 @@ plugins {
     // https://docs.gradle.org/current/userguide/pmd_plugin.html
     id 'pmd'     
     
+	// commenting out the checkstyle so that I do not see all the indentation warnings
     // https://docs.gradle.org/current/userguide/checkstyle_plugin.html
-    id 'checkstyle' 
+    // id 'checkstyle' 
 }
 
 ext { // define variables for version number of different components
