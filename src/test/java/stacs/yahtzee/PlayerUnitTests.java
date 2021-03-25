@@ -46,9 +46,7 @@ public class PlayerUnitTests {
 
     @Test
     void testPlayerOrder() {
-        // intentially breaking this test
-        // this should be "playerNumber" not 1000
-        assertEquals(1000, player.getPlayingOrder());
+        assertEquals(playerNumber, player.getPlayingOrder());
     } 
 
     @Test
