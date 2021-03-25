@@ -12,6 +12,7 @@ public class DieUnitTests {
     @Test
     public void testDieInitialNegativeOne() {
         IDie die = new Die();
+        // intentionally making this test fail for the purposes of testing the CI?CD workflow on github
         assertEquals(-1, die.getCurrentFace());
     } 
 
