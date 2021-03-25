@@ -47,9 +47,9 @@ public interface IPlayer {
 
     /**
      * Adds a die to the list of 'kept' die which the user will not roll.
-     * @param newKeptDice The die that the player will add to their 'kept' list.
+     * @param dieToBeKept The die that the player will add to their 'kept' list.
      */
-    void addKeptDie(IDie newKeptDice);
+    void addKeptDie(IDie dieToBeKept);
 
     /**
      * Removes a die from the list of 'kept' die.
