@@ -23,5 +23,5 @@ public class Die implements IDie {
     public void roll() {
         this.currentFace = randomGenerator.nextInt(6) + 1;
     }
-    
+
 }

@@ -1,1 +1,0 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"stacs.yahtzee","l":"IDie"},{"p":"stacs.yahtzee","l":"IPlayer"},{"p":"stacs.yahtzee","l":"IScoreCard"},{"p":"stacs.yahtzee","l":"IScoringOption"},{"p":"stacs.yahtzee","l":"IYahtzeeModel"}]
