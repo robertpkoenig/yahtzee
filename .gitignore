@@ -13,3 +13,6 @@
 build
 bin
 /.metadata/
+build.gradle
+
+.DS_Store
