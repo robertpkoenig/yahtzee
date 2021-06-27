@@ -23,6 +23,10 @@ plugins {
     // id 'checkstyle' 
 }
 
+task myJavadocs(type: Javadoc) {
+  source = sourceSets.main.allJava
+}
+
 ext { // define variables for version number of different components
 	junit_version = '5.7.0'
 	junit_platform_version = '1.7.0'
