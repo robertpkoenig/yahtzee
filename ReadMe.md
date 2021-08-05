@@ -6,6 +6,7 @@ The project contains an implementation of a model for the game of Yahtzee. It co
 
 - Java
 - JUnit
+- Mockito
 
 ## Goal
 
